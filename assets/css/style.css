@@ -1,0 +1,382 @@
+/* =========================
+   Root Variables & Base
+========================= */
+:root{
+  --mint:#eaf7e8;
+  --accent:#2e7d32;
+  --accent-2:#439a46;
+  --card:#d9efdc;
+  --ink:#1f2937;
+
+  --primary-color:#007bff;
+  --success-color:#28a745;
+  --warning-color:#ffc107;
+  --danger-color:#dc3545;
+  --info-color:#17a2b8;
+  --light-gray:#f8f9fa;
+  --dark-gray:#212529;
+  --text-color:#495057;
+  --border-color:#dee2e6;
+  --sidebar-bg:#343a40;
+  --sidebar-link-hover:#495057;
+
+  --sidebar-w:250px;
+  --topbar-h:56px;
+}
+
+*{ box-sizing:border-box; }
+
+html, body{
+  height:100%;
+  margin:0;
+}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  color:var(--text-color);
+  background-color:#e8f5e9; /* halaman publik hijau lembut */
+  display:flex;
+  flex-direction:column;
+}
+
+/* Wrapper halaman publik full-height */
+.wrapper{
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+}
+
+/* =========================
+   Navbar (Publik)
+========================= */
+.navbar{
+  transition:opacity .5s ease-in-out, transform .5s ease-in-out, background .3s ease-in-out;
+  position:fixed;
+  top:0; left:0; width:100%;
+  z-index:1000;
+  background-color:#2e7d32; /* default hijau */
+}
+.hide-navbar{ opacity:0; transform:translateY(-20px); pointer-events:none; }
+
+.navbar-transparent{ background:rgba(0,0,0,.4); }
+.navbar-scrolled{ background:rgba(0,0,0,.8); }
+
+.navbar-brand,
+.nav-link{ color:#fff; }
+.navbar-brand:hover,
+.nav-link:hover{ color:#fff; opacity:.9; }
+
+.navbar-toggler{ border:none; background:transparent; outline:none; }
+.navbar-toggler-icon{ filter:invert(1); }
+
+/* Dropdown transparan elegan */
+.dropdown-menu{
+  background:rgba(0,0,0,.6) !important;
+  border:none !important;
+  backdrop-filter:blur(10px);
+  opacity:0; visibility:hidden; transform:translateY(-10px);
+  transition:opacity .3s ease-in-out, transform .3s ease-in-out, visibility .3s ease-in-out;
+}
+.dropdown-menu .dropdown-item{ color:#fff !important; }
+.dropdown-menu .dropdown-item:hover{ background:rgba(255,255,255,.2) !important; }
+
+.nav-item:hover .dropdown-menu,
+.nav-item.show .dropdown-menu{ opacity:1; visibility:visible; transform:translateY(0); }
+
+.nav-link.dropdown-toggle::after{ transition:transform .3s ease-in-out; }
+.nav-item.show .nav-link.dropdown-toggle::after{ transform:rotate(180deg); }
+
+/* =========================
+   Hero & Cards (Publik)
+========================= */
+.hero{
+  background:url('assets/img/biology.png') center/cover no-repeat;
+  color:#fff; text-align:center;
+  padding:100px 20px; animation:fadeIn 2s;
+}
+
+.course-card{
+  background-size:cover; background-position:center;
+  color:#fff; position:relative; transition:transform .3s;
+}
+.course-card:hover{ transform:scale(1.05); }
+.course-card::before{
+  content:""; position:absolute; inset:0;
+  background:rgba(0,0,0,.5); border-radius:5px;
+}
+.course-card .card-body{ position:relative; z-index:1; }
+
+.carousel-item{ position:relative; }
+.carousel-overlay{
+  position:absolute; inset:0; background:rgba(0,0,0,1); z-index:1;
+}
+.carousel-item img{ object-fit:cover; height:500px; }
+.carousel-caption{ position:absolute; z-index:2; }
+
+.card.carousels{ background:linear-gradient(45deg,#ff9800,#f57c00); }
+
+.pricing-card{ transition:transform .3s; }
+.pricing-card:hover{ transform:scale(1.05); }
+
+@keyframes fadeIn{ from{opacity:0} to{opacity:1} }
+
+/* Footer umum */
+footer{
+  background:#f8f9fa;
+  text-align:center;
+  padding:15px 0;
+  margin-top:auto;
+}
+
+/* =========================
+   Auth / Form Visual
+========================= */
+.auth-card{
+  background:var(--card);
+  border:1px solid rgba(15,23,42,.06);
+  border-radius:1.25rem;
+  box-shadow:0 25px 35px rgba(46,125,50,.18), 0 10px 15px rgba(0,0,0,.04);
+  transform:translateY(0);
+  transition:transform .25s ease, box-shadow .25s ease;
+  overflow:hidden;
+}
+.auth-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 35px 45px rgba(46,125,50,.22), 0 12px 18px rgba(0,0,0,.06);
+}
+.auth-head{
+  background:linear-gradient(180deg,rgba(255,255,255,.35),rgba(255,255,255,0));
+  padding:1.2rem 1.5rem;
+  border-bottom:1px solid rgba(15,23,42,.06);
+  text-align:center;
+}
+.auth-head h3{ margin:0; font-weight:800; letter-spacing:.2px; }
+
+.center-screen{
+  min-height:100vh; display:flex; align-items:center; justify-content:center;
+}
+
+/* Form controls */
+.form-control{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:.9rem;
+  padding:.85rem 1rem;
+}
+.form-control:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 .22rem rgba(46,125,50,.15);
+}
+
+/* Register card */
+.register-card{
+  background:#d9efdc; border-radius:1.2rem; padding:2rem 2.5rem;
+  box-shadow:0 25px 35px rgba(46,125,50,.18);
+  width:100%; max-width:460px; transition:all .3s ease;
+}
+.register-card:hover{ transform:translateY(-3px); box-shadow:0 35px 45px rgba(46,125,50,.22); }
+
+/* Buttons – penting: JANGAN warnai .btn global agar varian lain tetap jalan */
+.btn{ border-radius:.9rem; font-weight:600; }
+
+.btn-primary{
+  --bs-btn-bg: var(--accent);
+  --bs-btn-border-color: var(--accent);
+  --bs-btn-hover-bg: var(--accent-2);
+  --bs-btn-hover-border-color: var(--accent-2);
+  --bs-btn-focus-shadow-rgb: 46,125,50;
+  border-radius:.9rem; padding:.9rem 1rem; letter-spacing:.2px;
+}
+
+/* Link halus */
+.muted-link{ color:#334155; text-decoration:none; }
+.muted-link:hover{ color:var(--accent); text-decoration:underline; }
+
+.alert{ border-radius:.9rem; }
+
+/* =========================
+   Sidebar & Admin Layout
+========================= */
+.sidebar{
+  width:var(--sidebar-w);
+  background-color:var(--sidebar-bg);
+  color:#fff; height:100vh; position:fixed; top:0; left:0;
+  padding:20px 0; box-shadow:2px 0 10px rgba(0,0,0,.1);
+  display:flex; flex-direction:column;
+}
+
+.sidebar-header{
+  padding:0 20px 20px 20px; margin-bottom:15px;
+  font-size:22px; font-weight:700; color:#fff;
+  border-bottom:1px solid var(--sidebar-link-hover);
+  display:flex; align-items:center; gap:10px;
+}
+
+.sidebar ul{ list-style:none; margin:0; padding:0; }
+.sidebar ul li a,
+.menu-header{
+  display:flex; align-items:center; gap:12px;
+  color:#e9ecef; padding:15px 20px; text-decoration:none;
+  transition:background .3s, color .3s; font-weight:500;
+}
+.sidebar ul li a:hover,
+.menu-header:hover{ background:var(--sidebar-link-hover); color:#fff; }
+
+.menu-header{ cursor:pointer; justify-content:space-between; }
+.menu-content{ display:none; background:#2b2f33; }
+.menu-content.active{ display:block; }
+.menu-content li a{ padding-left:50px; }
+
+/* Topbar admin */
+.admin-topbar{
+  position:fixed; top:0; left:var(--sidebar-w); right:0; height:var(--topbar-h);
+  display:flex; align-items:center; justify-content:space-between; padding:0 16px;
+  background:#343a40; color:#fff; border:0; box-shadow:none; border-radius:0; z-index:900;
+}
+.tb-left{ display:flex; align-items:center; gap:10px; }
+.tb-title{ font-weight:600; color:#fff; }
+.tb-right{ display:flex; align-items:center; gap:12px; margin-left:auto; }
+
+.user-menu{ position:relative; display:flex; align-items:center; gap:10px; cursor:pointer; user-select:none; }
+.user-avatar{ width:36px; height:36px; border-radius:50%; object-fit:cover; border:1px solid #eef0f2; }
+.user-name{ font-weight:600; color:#eee; }
+.user-menu .chevron{ font-size:12px; color:#cbd5e1; }
+
+.user-dropdown{
+  position:absolute; right:0; top:46px; min-width:190px;
+  background:#343a40; color:#dbd5d5; border:1px solid #e5e7eb;
+  border-radius:10px; box-shadow:0 10px 25px rgba(0,0,0,.08); padding:8px; display:none;
+}
+.user-dropdown a{ display:flex; align-items:center; gap:8px; padding:10px; color:#ebe9e9; text-decoration:none; border-radius:8px; }
+.user-dropdown a:hover{ background:rgb(170,174,221); }
+.user-dropdown .divider{ height:1px; background:#eef0f2; margin:6px 4px; }
+.user-dropdown .logout{ color:#b91c1c; }
+.user-dropdown .logout:hover{ background:#fee2e2; }
+.user-menu.open .user-dropdown{ display:block; }
+
+body.sidebar-collapsed .sidebar{ width:68px; }
+body.sidebar-collapsed .sidebar .sidebar-header span,
+body.sidebar-collapsed .sidebar ul li a span,
+body.sidebar-collapsed .menu-header span{ display:none; }
+
+@media (max-width:768px){
+  :root{ --sidebar-w:220px; }
+}
+
+/* Area konten admin */
+.main-content{
+  margin-left:var(--sidebar-w);
+  padding:calc(var(--topbar-h) + 36px) 24px 32px 20px;
+  min-height:100vh;
+}
+.content-wrapper{
+  max-width:1200px; margin:0 auto; padding:30px; background:#fff;
+  border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,.05);
+}
+h1{ color:var(--dark-gray); font-size:28px; margin-bottom:5px; }
+.subtitle{ color:#6c757d; margin-bottom:30px; }
+
+/* =========================
+   Buttons (Global)
+========================= */
+/* Penting: JANGAN warnai semua .btn, cukup varian-nya */
+.add-button,
+.btn-primary{
+  background-color:var(--primary-color);
+  color:#fff;
+  border:none;
+}
+
+.btn-secondary{ background-color:#6c757d; color:#fff; }
+.btn-secondary:hover{ background-color:#5a6268; }
+.btn-warning{ background-color:var(--warning-color); color:#111; }
+.btn-warning:hover{ background-color:#e0a800; }
+
+/* Link button */
+.btn-link,
+.btn-link:hover,
+.btn-link:focus{ text-decoration:none !important; }
+
+/* =========================
+   Tables
+========================= */
+.table-wrapper,
+.table-responsive{
+  overflow-x:auto; background:#fff;
+  border:1px solid #e5e7eb; border-radius:12px;
+}
+
+table{ width:100%; border-collapse:collapse; }
+th, td{
+  padding:12px 14px;
+  border-bottom:1px solid var(--border-color);
+  vertical-align:middle;
+}
+thead th{
+  background:#f6f8fa;
+  font-weight:700; color:#1f2937;
+  text-transform:uppercase; font-size:12px;
+}
+tbody tr:hover{ background:#f8fafc; }
+img.thumb{ height:48px; width:auto; border:1px solid #e5e7eb; border-radius:6px; object-fit:cover; }
+
+.page-title{ margin:0 0 6px; font-weight:800; }
+.breadcrumbs{ color:#64748b; margin-bottom:18px; }
+
+.badge-active{
+  background:#dcfce7; color:#166534; border-radius:999px;
+  padding:.25rem .6rem; font-weight:600; font-size:.8rem;
+}
+.badge-inactive{
+  background:#e5e7eb; color:#374151; border-radius:999px;
+  padding:.25rem .6rem; font-weight:600; font-size:.8rem;
+}
+
+/* =========================
+   Action Buttons (Edit/Delete)
+========================= */
+/* Spesifisitas lebih tinggi agar tidak ketimpa .btn */
+.btn.btn-edit{
+  background:#ffc107; color:#111; border:0;
+  padding:6px 10px; border-radius:6px; line-height:1;
+}
+.btn.btn-edit:hover{ background:#e0a800; }
+
+.btn.btn-delete{
+  background:#dc3545; color:#fff; border:0;
+  padding:6px 10px; border-radius:6px; line-height:1;
+}
+.btn.btn-delete:hover{ background:#bb2d3b; }
+
+/* Jika tombol ada di dalam table wrapper/responsive */
+.table-wrapper .btn,
+.table-responsive .btn{
+  margin:0; padding:6px 10px; border-radius:6px; line-height:1;
+}
+
+/* =========================
+   Forms (Admin)
+========================= */
+.form-container{ max-width:700px; }
+.form-group{ margin-bottom:20px; }
+.form-group label{ display:block; margin-bottom:8px; font-weight:600; }
+.form-group input,
+.form-group textarea,
+.form-group select{
+  width:100%; padding:12px; border:1px solid var(--border-color);
+  border-radius:8px; transition:border-color .2s, box-shadow .2s;
+}
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus{
+  outline:none; border-color:var(--primary-color);
+  box-shadow:0 0 0 3px rgba(0,123,255,.2);
+}
+.form-actions{ display:flex; gap:10px; justify-content:flex-start; margin-top:30px; }
+
+/* =========================
+   Utilities
+========================= */
+.tiny-foot{ color:#64748b; }
+.text-white{ color:#fff !important; }
+.bg-accent{ background:var(--accent); }
