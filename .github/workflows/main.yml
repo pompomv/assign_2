@@ -5,7 +5,7 @@ on:
 
 jobs:
   test-runner:
-    runs-on: [Pompom]   
+    runs-on: [Pompom_1]   
 
     steps:
     - name: Print test message
