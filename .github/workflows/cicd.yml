@@ -2,13 +2,13 @@ name: CI/CD Auto Deploy
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   # =========================================
   # DEPLOY KE LAPTOP rifa
   # =========================================
-  deploy-Danendra:
+  deploy-Pompom:
     runs-on: [Pompom]  # label runner rifa
     steps:
       - name: Set project path
@@ -19,8 +19,8 @@ jobs:
       - name: Pull latest changes
         working-directory: ${{ env.PROJECT_PATH }}
         run: |
-          git fetch origin master
-          git reset --hard origin/master
+          git fetch origin main
+          git reset --hard origin/main
 
       - name: Restart Docker
         working-directory: ${{ env.PROJECT_PATH }}
@@ -31,8 +31,8 @@ jobs:
   # =========================================
   # DEPLOY KE LAPTOP palah
   # =========================================
-  deploy-husain:
-    runs-on: [DESKTOP-RFO2K9S]  # label runner Husain
+  deploy-palah:
+    runs-on: [DESKTOP-RFO2K9S]  # label runner Falah
     
     steps:
       - name: Set project path
@@ -43,8 +43,8 @@ jobs:
       - name: Pull latest changes
         working-directory: ${{ env.PROJECT_PATH }}
         run: |
-          git fetch origin master
-          git reset --hard origin/master
+          git fetch origin main
+          git reset --hard origin/main
 
       - name: Restart Docker
         working-directory: ${{ env.PROJECT_PATH }}
