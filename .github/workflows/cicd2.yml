@@ -2,52 +2,106 @@ name: CI/CD Auto Deploy
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   # =========================================
-  # DEPLOY KE LAPTOP rifa
+  # DEPLOY KE LAPTOP POMPOM
   # =========================================
-  deploy-Pompom:
-    runs-on: [Pompom_1]  # label runner rifa
+  deploy-pompom:
+    name: Deploy to Pompom laptop
+    runs-on: [self-hosted, Pompom_1]   # runner labels (must match runner config)
+
     steps:
       - name: Set project path
+        shell: bash
         run: |
+          # Sesuaikan kalau folder project beda
           PROJECT_PATH=~/assign_2
-          echo "PROJECT_PATH=$PROJECT_PATH" >> $GITHUB_ENV
-      
-      - name: Pull latest changes
+          echo "PROJECT_PATH=$PROJECT_PATH" >> "$GITHUB_ENV"
+
+      - name: Check repo and Docker
+        shell: bash
+        run: |
+          echo "=== INFO RUNNER ==="
+          echo "Hostname: $(hostname)"
+          echo "Project path: $PROJECT_PATH"
+          echo
+
+          cd "$PROJECT_PATH"
+          echo "=== PWD & GIT STATUS ==="
+          pwd
+          git status
+          echo
+          echo "=== GIT REMOTE ==="
+          git remote -v || true
+          echo
+          echo "=== DOCKER COMPOSE VERSION ==="
+          docker compose version
+
+      - name: Pull latest changes from main
+        shell: bash
         working-directory: ${{ env.PROJECT_PATH }}
         run: |
+          set -e
           git fetch origin main
           git reset --hard origin/main
 
-      - name: Restart Docker
+      - name: Restart Docker stack
+        shell: bash
         working-directory: ${{ env.PROJECT_PATH }}
         run: |
+          set -e
           docker compose down || true
           docker compose up -d --build
 
   # =========================================
-  # DEPLOY KE LAPTOP palah
+  # DEPLOY KE LAPTOP FALAH
   # =========================================
   deploy-palah:
-    runs-on: [Falah_1]  # label runner Falah
-    
+    name: Deploy to Falah laptop
+    runs-on: [self-hosted, Falah_1]    # runner labels (must match runner config)
+
     steps:
       - name: Set project path
+        shell: bash
         run: |
+          # Kalau di laptop Falah path-nya beda, ubah di sini
           PROJECT_PATH=~/assign_2
-          echo "PROJECT_PATH=$PROJECT_PATH" >> $GITHUB_ENV
+          echo "PROJECT_PATH=$PROJECT_PATH" >> "$GITHUB_ENV"
 
-      - name: Pull latest changes
+      - name: Check repo and Docker
+        shell: bash
+        run: |
+          echo "=== INFO RUNNER ==="
+          echo "Hostname: $(hostname)"
+          echo "Project path: $PROJECT_PATH"
+          echo
+
+          cd "$PROJECT_PATH"
+          echo "=== PWD & GIT STATUS ==="
+          pwd
+          git status
+          echo
+          echo "=== GIT REMOTE ==="
+          git remote -v || true
+          echo
+          echo "=== DOCKER COMPOSE VERSION ==="
+          docker compose version
+
+      - name: Pull latest changes from main
+        shell: bash
         working-directory: ${{ env.PROJECT_PATH }}
         run: |
+          set -e
           git fetch origin main
           git reset --hard origin/main
 
-      - name: Restart Docker
+      - name: Restart Docker stack
+        shell: bash
         working-directory: ${{ env.PROJECT_PATH }}
         run: |
+          set -e
           docker compose down || true
           docker compose up -d --build
