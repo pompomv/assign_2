@@ -1,0 +1,23 @@
+# Dockerfile
+# Image PHP-FPM (tanpa web server)
+FROM php:8.2-fpm-alpine
+
+# Install ekstensi yang dibutuhkan
+RUN docker-php-ext-install pdo pdo_mysql
+
+# Direktori kerja di dalam container
+WORKDIR /var/www/html
+
+# Copy source code ke dalam container (untuk build image)
+COPY . /var/www/html
+
+# Set permission dasar
+RUN chown -R www-data:www-data /var/www/html \
+    && find . -type f -exec chmod 644 {} \; \
+    && find . -type d -exec chmod 755 {} \;
+
+# PHP-FPM listen di port 9000
+EXPOSE 9000
+
+CMD ["php-fpm"]
+

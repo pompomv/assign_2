@@ -1,0 +1,20 @@
+# Dockerfile.nginx
+# Image base Nginx yang ringan
+FROM nginx:1.27-alpine
+
+# Hapus konfigurasi default bawaan Nginx
+RUN rm /etc/nginx/conf.d/default.conf
+
+# Copy konfigurasi Nginx khusus project ini
+# (nanti kamu buat file default.conf di folder deploy/nginx/)
+COPY deploy/nginx/default.conf /etc/nginx/conf.d/default.conf
+
+# Root direktori web (akan di-mount pakai volume dari host)
+WORKDIR /var/www/html
+
+# Expose port HTTP standar di dalam container
+EXPOSE 80
+
+# Jalankan Nginx di foreground (dibutuhkan di dalam container)
+CMD ["nginx", "-g", "daemon off;"]
+
