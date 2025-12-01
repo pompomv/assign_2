@@ -1,0 +1,2056 @@
+[2025-12-01 14:12:54Z INFO HostContext] No proxy settings were found based on environmental variables (http_proxy/https_proxy/HTTP_PROXY/HTTPS_PROXY)
+[2025-12-01 14:12:54Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:54Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:54Z INFO HostContext] Well known config file 'Credentials': '/home/pompom/assign_2/actions-runner/.credentials'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known config file 'Runner': '/home/pompom/assign_2/actions-runner/.runner'
+[2025-12-01 14:12:55Z INFO Worker] Version: 2.329.0
+[2025-12-01 14:12:55Z INFO Worker] Commit: c76c59996c8fa32e989164a5a695efb12608ae5a
+[2025-12-01 14:12:55Z INFO Worker] Culture: en-US
+[2025-12-01 14:12:55Z INFO Worker] UI Culture: en-US
+[2025-12-01 14:12:55Z INFO Worker] Waiting to receive the job message from the channel.
+[2025-12-01 14:12:55Z INFO ProcessChannel] Receiving message of length 19196, with hash 'c7acd13eb668de69066762b6640996f2f176a309576eb51a6d57f6a5a71a86e0'
+[2025-12-01 14:12:55Z INFO Worker] Message received.
+[2025-12-01 14:12:55Z INFO Worker] Job message:
+ {
+  "fileTable": [
+    ".github/workflows/cicd2.yml"
+  ],
+  "mask": [
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    }
+  ],
+  "steps": [
+    {
+      "type": "action",
+      "reference": {
+        "type": "script"
+      },
+      "displayNameToken": {
+        "type": 0,
+        "file": 1,
+        "line": 14,
+        "col": 15,
+        "lit": "Set project path"
+      },
+      "contextName": "__run",
+      "inputs": {
+        "type": 2,
+        "map": [
+          {
+            "key": "script",
+            "value": {
+              "type": 0,
+              "file": 1,
+              "line": 15,
+              "col": 14,
+              "lit": "PROJECT_PATH=~/assign_2\necho \"PROJECT_PATH=$PROJECT_PATH\" >> $GITHUB_ENV\n"
+            }
+          }
+        ]
+      },
+      "condition": "success()",
+      "id": "f69df2e1-8830-4ee0-95d0-07e55f5a7d8c",
+      "name": "__run"
+    },
+    {
+      "type": "action",
+      "reference": {
+        "type": "script"
+      },
+      "displayNameToken": {
+        "type": 0,
+        "file": 1,
+        "line": 19,
+        "col": 15,
+        "lit": "Pull latest changes"
+      },
+      "contextName": "__run_2",
+      "inputs": {
+        "type": 2,
+        "map": [
+          {
+            "key": "script",
+            "value": {
+              "type": 0,
+              "file": 1,
+              "line": 21,
+              "col": 14,
+              "lit": "git fetch origin main\ngit reset --hard origin/main\n"
+            }
+          },
+          {
+            "key": "workingDirectory",
+            "value": {
+              "type": 3,
+              "file": 1,
+              "line": 20,
+              "col": 28,
+              "expr": "env.PROJECT_PATH"
+            }
+          }
+        ]
+      },
+      "condition": "success()",
+      "id": "400febb3-c443-4c1c-8d16-c62137511ccd",
+      "name": "__run_2"
+    },
+    {
+      "type": "action",
+      "reference": {
+        "type": "script"
+      },
+      "displayNameToken": {
+        "type": 0,
+        "file": 1,
+        "line": 25,
+        "col": 15,
+        "lit": "Restart Docker"
+      },
+      "contextName": "__run_3",
+      "inputs": {
+        "type": 2,
+        "map": [
+          {
+            "key": "script",
+            "value": {
+              "type": 0,
+              "file": 1,
+              "line": 27,
+              "col": 14,
+              "lit": "docker compose down || true\ndocker compose up -d --build\n"
+            }
+          },
+          {
+            "key": "workingDirectory",
+            "value": {
+              "type": 3,
+              "file": 1,
+              "line": 26,
+              "col": 28,
+              "expr": "env.PROJECT_PATH"
+            }
+          }
+        ]
+      },
+      "condition": "success()",
+      "id": "8d7d818f-3e94-4a56-88fe-9c1091536f70",
+      "name": "__run_3"
+    }
+  ],
+  "variables": {
+    "Actions.EnableHttpRedirects": {
+      "value": "true"
+    },
+    "DistributedTask.AddWarningToNode12Action": {
+      "value": "true"
+    },
+    "DistributedTask.AddWarningToNode16Action": {
+      "value": "true"
+    },
+    "DistributedTask.AllowRunnerContainerHooks": {
+      "value": "true"
+    },
+    "DistributedTask.DeprecateStepOutputCommands": {
+      "value": "true"
+    },
+    "DistributedTask.DetailUntarFailure": {
+      "value": "true"
+    },
+    "DistributedTask.EnableCompositeActions": {
+      "value": "true"
+    },
+    "DistributedTask.EnableJobServerQueueTelemetry": {
+      "value": "true"
+    },
+    "DistributedTask.EnhancedAnnotations": {
+      "value": "true"
+    },
+    "DistributedTask.ForceGithubJavascriptActionsToNode16": {
+      "value": "true"
+    },
+    "DistributedTask.ForceGithubJavascriptActionsToNode20": {
+      "value": "true"
+    },
+    "DistributedTask.LogTemplateErrorsAsDebugMessages": {
+      "value": "true"
+    },
+    "DistributedTask.MarkJobAsFailedOnWorkerCrash": {
+      "value": "true"
+    },
+    "DistributedTask.NewActionMetadata": {
+      "value": "true"
+    },
+    "DistributedTask.UploadStepSummary": {
+      "value": "true"
+    },
+    "DistributedTask.UseActionArchiveCache": {
+      "value": "true"
+    },
+    "DistributedTask.UseWhich2": {
+      "value": "true"
+    },
+    "RunService.FixEmbeddedIssues": {
+      "value": "true"
+    },
+    "actions_add_check_run_id_to_job_context": {
+      "value": "true"
+    },
+    "actions_container_action_runner_temp": {
+      "value": "true"
+    },
+    "actions_display_helpful_actions_download_errors": {
+      "value": "true"
+    },
+    "actions_skip_retry_complete_job_upon_known_errors": {
+      "value": "true"
+    },
+    "actions_uses_cache_service_v2": {
+      "value": "true"
+    },
+    "github_token": {
+      "value": "***",
+      "isSecret": true
+    },
+    "system.from_run_service": {
+      "value": "true"
+    },
+    "system.github.job": {
+      "value": "deploy-Pompom"
+    },
+    "system.github.launch_endpoint": {
+      "value": "https://launch.actions.githubusercontent.com"
+    },
+    "system.github.results_endpoint": {
+      "value": "https://results-receiver.actions.githubusercontent.com/"
+    },
+    "system.github.results_upload_with_sdk": {
+      "value": "true"
+    },
+    "system.github.token": {
+      "value": "***",
+      "isSecret": true
+    },
+    "system.github.token.permissions": {
+      "value": "{\"Contents\":\"read\",\"Metadata\":\"read\",\"Packages\":\"read\"}"
+    },
+    "system.orchestrationId": {
+      "value": "384cd1d5-e829-4f00-98db-3204fdfde901.deploy-Pompom.__default"
+    },
+    "system.phaseDisplayName": {
+      "value": "deploy-Pompom"
+    },
+    "system.runner.lowdiskspacethreshold": {
+      "value": "100"
+    },
+    "system.runnerEnvironment": {
+      "value": "self-hosted"
+    },
+    "system.runnerGroupName": {
+      "value": "Default"
+    }
+  },
+  "messageType": "RunnerJobRequest",
+  "plan": {
+    "scopeIdentifier": "00000000-0000-0000-0000-000000000000",
+    "planType": "actions",
+    "version": 0,
+    "planId": "384cd1d5-e829-4f00-98db-3204fdfde901",
+    "planGroup": null,
+    "artifactUri": null,
+    "artifactLocation": null,
+    "definition": null,
+    "owner": null
+  },
+  "timeline": {
+    "id": "384cd1d5-e829-4f00-98db-3204fdfde901",
+    "changeId": 0,
+    "location": null
+  },
+  "jobId": "96173a4b-df67-5903-af16-f8400f9875af",
+  "jobDisplayName": "deploy-Pompom",
+  "jobName": "__default",
+  "requestId": 0,
+  "lockedUntil": "0001-01-01T00:00:00",
+  "resources": {
+    "endpoints": [
+      {
+        "data": {
+          "ServerId": "",
+          "ServerName": "",
+          "CacheServerUrl": "https://artifactcache.actions.githubusercontent.com/nlgfjfWgVxxM5pAdqfaD6yeJ7f05PmN8iN3vuIxsBp6nXJWnTr/",
+          "FeedStreamUrl": "wss://results-receiver.actions.githubusercontent.com/_ws/ingest.sock",
+          "ResultsServiceUrl": "https://results-receiver.actions.githubusercontent.com/",
+          "PipelinesServiceUrl": "https://pipelinesghubeus14.actions.githubusercontent.com/nlgfjfWgVxxM5pAdqfaD6yeJ7f05PmN8iN3vuIxsBp6nXJWnTr/",
+          "GenerateIdTokenUrl": ""
+        },
+        "name": "SystemVssConnection",
+        "url": "https://run-actions-3-azure-eastus.actions.githubusercontent.com/88/",
+        "authorization": {
+          "parameters": {
+            "AccessToken": "***"
+          },
+          "scheme": "OAuth"
+        },
+        "isShared": false,
+        "isReady": true
+      }
+    ]
+  },
+  "contextData": {
+    "github": {
+      "t": 2,
+      "d": [
+        {
+          "k": "ref",
+          "v": "refs/heads/main"
+        },
+        {
+          "k": "sha",
+          "v": "6961c6496bfc1c970f09aa2e4f23858fd0226034"
+        },
+        {
+          "k": "repository",
+          "v": "pompomv/assign_2"
+        },
+        {
+          "k": "repository_owner",
+          "v": "pompomv"
+        },
+        {
+          "k": "repository_owner_id",
+          "v": "100103631"
+        },
+        {
+          "k": "repositoryUrl",
+          "v": "git://github.com/pompomv/assign_2.git"
+        },
+        {
+          "k": "run_id",
+          "v": "19817616735"
+        },
+        {
+          "k": "run_number",
+          "v": "5"
+        },
+        {
+          "k": "retention_days",
+          "v": "90"
+        },
+        {
+          "k": "run_attempt",
+          "v": "1"
+        },
+        {
+          "k": "artifact_cache_size_limit",
+          "v": "10"
+        },
+        {
+          "k": "repository_visibility",
+          "v": "public"
+        },
+        {
+          "k": "actor_id",
+          "v": "100103631"
+        },
+        {
+          "k": "actor",
+          "v": "pompomv"
+        },
+        {
+          "k": "workflow",
+          "v": "CI/CD Auto Deploy"
+        },
+        {
+          "k": "head_ref",
+          "v": ""
+        },
+        {
+          "k": "base_ref",
+          "v": ""
+        },
+        {
+          "k": "event_name",
+          "v": "push"
+        },
+        {
+          "k": "server_url",
+          "v": "https://github.com"
+        },
+        {
+          "k": "api_url",
+          "v": "https://api.github.com"
+        },
+        {
+          "k": "graphql_url",
+          "v": "https://api.github.com/graphql"
+        },
+        {
+          "k": "ref_name",
+          "v": "main"
+        },
+        {
+          "k": "ref_protected",
+          "v": false
+        },
+        {
+          "k": "ref_type",
+          "v": "branch"
+        },
+        {
+          "k": "secret_source",
+          "v": "Actions"
+        },
+        {
+          "k": "event",
+          "v": {
+            "t": 2,
+            "d": [
+              {
+                "k": "after",
+                "v": "6961c6496bfc1c970f09aa2e4f23858fd0226034"
+              },
+              {
+                "k": "base_ref",
+                "v": null
+              },
+              {
+                "k": "before",
+                "v": "81ac48f9201e2bcf75964caeb13507cd09394353"
+              },
+              {
+                "k": "commits",
+                "v": {
+                  "t": 1,
+                  "a": [
+                    {
+                      "t": 2,
+                      "d": [
+                        {
+                          "k": "author",
+                          "v": {
+                            "t": 2,
+                            "d": [
+                              {
+                                "k": "email",
+                                "v": "100103631+pompomv@users.noreply.github.com"
+                              },
+                              {
+                                "k": "name",
+                                "v": "Rifa Faviandra"
+                              },
+                              {
+                                "k": "username",
+                                "v": "pompomv"
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "k": "committer",
+                          "v": {
+                            "t": 2,
+                            "d": [
+                              {
+                                "k": "email",
+                                "v": "noreply@github.com"
+                              },
+                              {
+                                "k": "name",
+                                "v": "GitHub"
+                              },
+                              {
+                                "k": "username",
+                                "v": "web-flow"
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "k": "distinct",
+                          "v": true
+                        },
+                        {
+                          "k": "id",
+                          "v": "6961c6496bfc1c970f09aa2e4f23858fd0226034"
+                        },
+                        {
+                          "k": "message",
+                          "v": "Change default branch from 'master' to 'main'"
+                        },
+                        {
+                          "k": "timestamp",
+                          "v": "2025-12-01T16:23:51+07:00"
+                        },
+                        {
+                          "k": "tree_id",
+                          "v": "869908ae13a44d2adf081f1cfd1c4ae07eb52a2d"
+                        },
+                        {
+                          "k": "url",
+                          "v": "https://github.com/pompomv/assign_2/commit/6961c6496bfc1c970f09aa2e4f23858fd0226034"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "k": "compare",
+                "v": "https://github.com/pompomv/assign_2/compare/81ac48f9201e...6961c6496bfc"
+              },
+              {
+                "k": "created",
+                "v": false
+              },
+              {
+                "k": "deleted",
+                "v": false
+              },
+              {
+                "k": "forced",
+                "v": false
+              },
+              {
+                "k": "head_commit",
+                "v": {
+                  "t": 2,
+                  "d": [
+                    {
+                      "k": "author",
+                      "v": {
+                        "t": 2,
+                        "d": [
+                          {
+                            "k": "email",
+                            "v": "100103631+pompomv@users.noreply.github.com"
+                          },
+                          {
+                            "k": "name",
+                            "v": "Rifa Faviandra"
+                          },
+                          {
+                            "k": "username",
+                            "v": "pompomv"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "k": "committer",
+                      "v": {
+                        "t": 2,
+                        "d": [
+                          {
+                            "k": "email",
+                            "v": "noreply@github.com"
+                          },
+                          {
+                            "k": "name",
+                            "v": "GitHub"
+                          },
+                          {
+                            "k": "username",
+                            "v": "web-flow"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "k": "distinct",
+                      "v": true
+                    },
+                    {
+                      "k": "id",
+                      "v": "6961c6496bfc1c970f09aa2e4f23858fd0226034"
+                    },
+                    {
+                      "k": "message",
+                      "v": "Change default branch from 'master' to 'main'"
+                    },
+                    {
+                      "k": "timestamp",
+                      "v": "2025-12-01T16:23:51+07:00"
+                    },
+                    {
+                      "k": "tree_id",
+                      "v": "869908ae13a44d2adf081f1cfd1c4ae07eb52a2d"
+                    },
+                    {
+                      "k": "url",
+                      "v": "https://github.com/pompomv/assign_2/commit/6961c6496bfc1c970f09aa2e4f23858fd0226034"
+                    }
+                  ]
+                }
+              },
+              {
+                "k": "pusher",
+                "v": {
+                  "t": 2,
+                  "d": [
+                    {
+                      "k": "email",
+                      "v": "100103631+pompomv@users.noreply.github.com"
+                    },
+                    {
+                      "k": "name",
+                      "v": "pompomv"
+                    }
+                  ]
+                }
+              },
+              {
+                "k": "ref",
+                "v": "refs/heads/main"
+              },
+              {
+                "k": "repository",
+                "v": {
+                  "t": 2,
+                  "d": [
+                    {
+                      "k": "allow_forking",
+                      "v": true
+                    },
+                    {
+                      "k": "archive_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/{archive_format}{/ref}"
+                    },
+                    {
+                      "k": "archived",
+                      "v": false
+                    },
+                    {
+                      "k": "assignees_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/assignees{/user}"
+                    },
+                    {
+                      "k": "blobs_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/git/blobs{/sha}"
+                    },
+                    {
+                      "k": "branches_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/branches{/branch}"
+                    },
+                    {
+                      "k": "clone_url",
+                      "v": "https://github.com/pompomv/assign_2.git"
+                    },
+                    {
+                      "k": "collaborators_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/collaborators{/collaborator}"
+                    },
+                    {
+                      "k": "comments_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/comments{/number}"
+                    },
+                    {
+                      "k": "commits_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/commits{/sha}"
+                    },
+                    {
+                      "k": "compare_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/compare/{base}...{head}"
+                    },
+                    {
+                      "k": "contents_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/contents/{+path}"
+                    },
+                    {
+                      "k": "contributors_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/contributors"
+                    },
+                    {
+                      "k": "created_at",
+                      "v": 1762834750.0
+                    },
+                    {
+                      "k": "default_branch",
+                      "v": "main"
+                    },
+                    {
+                      "k": "deployments_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/deployments"
+                    },
+                    {
+                      "k": "description",
+                      "v": null
+                    },
+                    {
+                      "k": "disabled",
+                      "v": false
+                    },
+                    {
+                      "k": "downloads_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/downloads"
+                    },
+                    {
+                      "k": "events_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/events"
+                    },
+                    {
+                      "k": "fork",
+                      "v": false
+                    },
+                    {
+                      "k": "forks",
+                      "v": 0.0
+                    },
+                    {
+                      "k": "forks_count",
+                      "v": 0.0
+                    },
+                    {
+                      "k": "forks_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/forks"
+                    },
+                    {
+                      "k": "full_name",
+                      "v": "pompomv/assign_2"
+                    },
+                    {
+                      "k": "git_commits_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/git/commits{/sha}"
+                    },
+                    {
+                      "k": "git_refs_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/git/refs{/sha}"
+                    },
+                    {
+                      "k": "git_tags_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/git/tags{/sha}"
+                    },
+                    {
+                      "k": "git_url",
+                      "v": "git://github.com/pompomv/assign_2.git"
+                    },
+                    {
+                      "k": "has_discussions",
+                      "v": false
+                    },
+                    {
+                      "k": "has_downloads",
+                      "v": true
+                    },
+                    {
+                      "k": "has_issues",
+                      "v": true
+                    },
+                    {
+                      "k": "has_pages",
+                      "v": false
+                    },
+                    {
+                      "k": "has_projects",
+                      "v": true
+                    },
+                    {
+                      "k": "has_wiki",
+                      "v": false
+                    },
+                    {
+                      "k": "homepage",
+                      "v": null
+                    },
+                    {
+                      "k": "hooks_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/hooks"
+                    },
+                    {
+                      "k": "html_url",
+                      "v": "https://github.com/pompomv/assign_2"
+                    },
+                    {
+                      "k": "id",
+                      "v": 1093960173.0
+                    },
+                    {
+                      "k": "is_template",
+                      "v": false
+                    },
+                    {
+                      "k": "issue_comment_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/issues/comments{/number}"
+                    },
+                    {
+                      "k": "issue_events_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/issues/events{/number}"
+                    },
+                    {
+                      "k": "issues_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/issues{/number}"
+                    },
+                    {
+                      "k": "keys_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/keys{/key_id}"
+                    },
+                    {
+                      "k": "labels_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/labels{/name}"
+                    },
+                    {
+                      "k": "language",
+                      "v": "PHP"
+                    },
+                    {
+                      "k": "languages_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/languages"
+                    },
+                    {
+                      "k": "license",
+                      "v": null
+                    },
+                    {
+                      "k": "master_branch",
+                      "v": "main"
+                    },
+                    {
+                      "k": "merges_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/merges"
+                    },
+                    {
+                      "k": "milestones_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/milestones{/number}"
+                    },
+                    {
+                      "k": "mirror_url",
+                      "v": null
+                    },
+                    {
+                      "k": "name",
+                      "v": "assign_2"
+                    },
+                    {
+                      "k": "node_id",
+                      "v": "R_kgDOQTSB7Q"
+                    },
+                    {
+                      "k": "notifications_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/notifications{?since,all,participating}"
+                    },
+                    {
+                      "k": "open_issues",
+                      "v": 1.0
+                    },
+                    {
+                      "k": "open_issues_count",
+                      "v": 1.0
+                    },
+                    {
+                      "k": "owner",
+                      "v": {
+                        "t": 2,
+                        "d": [
+                          {
+                            "k": "avatar_url",
+                            "v": "https://avatars.githubusercontent.com/u/100103631?v=4"
+                          },
+                          {
+                            "k": "email",
+                            "v": "100103631+pompomv@users.noreply.github.com"
+                          },
+                          {
+                            "k": "events_url",
+                            "v": "https://api.github.com/users/pompomv/events{/privacy}"
+                          },
+                          {
+                            "k": "followers_url",
+                            "v": "https://api.github.com/users/pompomv/followers"
+                          },
+                          {
+                            "k": "following_url",
+                            "v": "https://api.github.com/users/pompomv/following{/other_user}"
+                          },
+                          {
+                            "k": "gists_url",
+                            "v": "https://api.github.com/users/pompomv/gists{/gist_id}"
+                          },
+                          {
+                            "k": "gravatar_id",
+                            "v": ""
+                          },
+                          {
+                            "k": "html_url",
+                            "v": "https://github.com/pompomv"
+                          },
+                          {
+                            "k": "id",
+                            "v": 100103631.0
+                          },
+                          {
+                            "k": "login",
+                            "v": "pompomv"
+                          },
+                          {
+                            "k": "name",
+                            "v": "pompomv"
+                          },
+                          {
+                            "k": "node_id",
+                            "v": "U_kgDOBfd1zw"
+                          },
+                          {
+                            "k": "organizations_url",
+                            "v": "https://api.github.com/users/pompomv/orgs"
+                          },
+                          {
+                            "k": "received_events_url",
+                            "v": "https://api.github.com/users/pompomv/received_events"
+                          },
+                          {
+                            "k": "repos_url",
+                            "v": "https://api.github.com/users/pompomv/repos"
+                          },
+                          {
+                            "k": "site_admin",
+                            "v": false
+                          },
+                          {
+                            "k": "starred_url",
+                            "v": "https://api.github.com/users/pompomv/starred{/owner}{/repo}"
+                          },
+                          {
+                            "k": "subscriptions_url",
+                            "v": "https://api.github.com/users/pompomv/subscriptions"
+                          },
+                          {
+                            "k": "type",
+                            "v": "User"
+                          },
+                          {
+                            "k": "url",
+                            "v": "https://api.github.com/users/pompomv"
+                          },
+                          {
+                            "k": "user_view_type",
+                            "v": "public"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "k": "private",
+                      "v": false
+                    },
+                    {
+                      "k": "pulls_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/pulls{/number}"
+                    },
+                    {
+                      "k": "pushed_at",
+                      "v": 1764581031.0
+                    },
+                    {
+                      "k": "releases_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/releases{/id}"
+                    },
+                    {
+                      "k": "size",
+                      "v": 19236.0
+                    },
+                    {
+                      "k": "ssh_url",
+                      "v": "git@github.com:pompomv/assign_2.git"
+                    },
+                    {
+                      "k": "stargazers",
+                      "v": 0.0
+                    },
+                    {
+                      "k": "stargazers_count",
+                      "v": 0.0
+                    },
+                    {
+                      "k": "stargazers_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/stargazers"
+                    },
+                    {
+                      "k": "statuses_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/statuses/{sha}"
+                    },
+                    {
+                      "k": "subscribers_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/subscribers"
+                    },
+                    {
+                      "k": "subscription_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/subscription"
+                    },
+                    {
+                      "k": "svn_url",
+                      "v": "https://github.com/pompomv/assign_2"
+                    },
+                    {
+                      "k": "tags_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/tags"
+                    },
+                    {
+                      "k": "teams_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/teams"
+                    },
+                    {
+                      "k": "topics",
+                      "v": {
+                        "t": 1
+                      }
+                    },
+                    {
+                      "k": "trees_url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2/git/trees{/sha}"
+                    },
+                    {
+                      "k": "updated_at",
+                      "v": "2025-12-01T09:23:32Z"
+                    },
+                    {
+                      "k": "url",
+                      "v": "https://api.github.com/repos/pompomv/assign_2"
+                    },
+                    {
+                      "k": "visibility",
+                      "v": "public"
+                    },
+                    {
+                      "k": "watchers",
+                      "v": 0.0
+                    },
+                    {
+                      "k": "watchers_count",
+                      "v": 0.0
+                    },
+                    {
+                      "k": "web_commit_signoff_required",
+                      "v": false
+                    }
+                  ]
+                }
+              },
+              {
+                "k": "sender",
+                "v": {
+                  "t": 2,
+                  "d": [
+                    {
+                      "k": "avatar_url",
+                      "v": "https://avatars.githubusercontent.com/u/100103631?v=4"
+                    },
+                    {
+                      "k": "events_url",
+                      "v": "https://api.github.com/users/pompomv/events{/privacy}"
+                    },
+                    {
+                      "k": "followers_url",
+                      "v": "https://api.github.com/users/pompomv/followers"
+                    },
+                    {
+                      "k": "following_url",
+                      "v": "https://api.github.com/users/pompomv/following{/other_user}"
+                    },
+                    {
+                      "k": "gists_url",
+                      "v": "https://api.github.com/users/pompomv/gists{/gist_id}"
+                    },
+                    {
+                      "k": "gravatar_id",
+                      "v": ""
+                    },
+                    {
+                      "k": "html_url",
+                      "v": "https://github.com/pompomv"
+                    },
+                    {
+                      "k": "id",
+                      "v": 100103631.0
+                    },
+                    {
+                      "k": "login",
+                      "v": "pompomv"
+                    },
+                    {
+                      "k": "node_id",
+                      "v": "U_kgDOBfd1zw"
+                    },
+                    {
+                      "k": "organizations_url",
+                      "v": "https://api.github.com/users/pompomv/orgs"
+                    },
+                    {
+                      "k": "received_events_url",
+                      "v": "https://api.github.com/users/pompomv/received_events"
+                    },
+                    {
+                      "k": "repos_url",
+                      "v": "https://api.github.com/users/pompomv/repos"
+                    },
+                    {
+                      "k": "site_admin",
+                      "v": false
+                    },
+                    {
+                      "k": "starred_url",
+                      "v": "https://api.github.com/users/pompomv/starred{/owner}{/repo}"
+                    },
+                    {
+                      "k": "subscriptions_url",
+                      "v": "https://api.github.com/users/pompomv/subscriptions"
+                    },
+                    {
+                      "k": "type",
+                      "v": "User"
+                    },
+                    {
+                      "k": "url",
+                      "v": "https://api.github.com/users/pompomv"
+                    },
+                    {
+                      "k": "user_view_type",
+                      "v": "public"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "k": "workflow_ref",
+          "v": "pompomv/assign_2/.github/workflows/cicd2.yml@refs/heads/main"
+        },
+        {
+          "k": "workflow_sha",
+          "v": "6961c6496bfc1c970f09aa2e4f23858fd0226034"
+        },
+        {
+          "k": "repository_id",
+          "v": "1093960173"
+        },
+        {
+          "k": "triggering_actor",
+          "v": "pompomv"
+        }
+      ]
+    },
+    "inputs": {
+      "t": 2
+    },
+    "job": {
+      "t": 2,
+      "d": [
+        {
+          "k": "check_run_id",
+          "v": 56772322919.0
+        }
+      ]
+    },
+    "matrix": null,
+    "needs": {
+      "t": 2
+    },
+    "strategy": {
+      "t": 2,
+      "d": [
+        {
+          "k": "fail-fast",
+          "v": true
+        },
+        {
+          "k": "job-index",
+          "v": 0.0
+        },
+        {
+          "k": "job-total",
+          "v": 1.0
+        },
+        {
+          "k": "max-parallel",
+          "v": 1.0
+        }
+      ]
+    },
+    "vars": {
+      "t": 2
+    }
+  },
+  "billingOwnerId": "U_kgDOBfd1zw"
+}
+[2025-12-01 14:12:55Z INFO JobRunner] Job ID 96173a4b-df67-5903-af16-f8400f9875af
+[2025-12-01 14:12:55Z INFO ConfigurationStore] currentAssemblyLocation: /home/pompom/assign_2/actions-runner/bin/Runner.Worker.dll
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO ConfigurationStore] binPath: /home/pompom/assign_2/actions-runner/bin
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO ConfigurationStore] RootFolder: /home/pompom/assign_2/actions-runner
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known config file 'Runner': '/home/pompom/assign_2/actions-runner/.runner'
+[2025-12-01 14:12:55Z INFO ConfigurationStore] ConfigFilePath: /home/pompom/assign_2/actions-runner/.runner
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known config file 'MigratedRunner': '/home/pompom/assign_2/actions-runner/.runner_migrated'
+[2025-12-01 14:12:55Z INFO ConfigurationStore] MigratedConfigFilePath: /home/pompom/assign_2/actions-runner/.runner_migrated
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known config file 'Credentials': '/home/pompom/assign_2/actions-runner/.credentials'
+[2025-12-01 14:12:55Z INFO ConfigurationStore] CredFilePath: /home/pompom/assign_2/actions-runner/.credentials
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known config file 'MigratedCredentials': '/home/pompom/assign_2/actions-runner/.credentials_migrated'
+[2025-12-01 14:12:55Z INFO ConfigurationStore] MigratedCredFilePath: /home/pompom/assign_2/actions-runner/.credentials_migrated
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known config file 'Service': '/home/pompom/assign_2/actions-runner/.service'
+[2025-12-01 14:12:55Z INFO ConfigurationStore] ServiceConfigFilePath: /home/pompom/assign_2/actions-runner/.service
+[2025-12-01 14:12:55Z INFO ConfigurationStore] Read setting file: 377 chars
+[2025-12-01 14:12:55Z INFO JobRunner] Initializing launch client
+[2025-12-01 14:12:55Z INFO JobServerQueue] Initializing results client
+[2025-12-01 14:12:55Z INFO ResultServer] Creating websocket client ...wss://results-receiver.actions.githubusercontent.com/_ws/ingest.sock
+[2025-12-01 14:12:55Z INFO ResultServer] Attempting to start websocket client with delay 00:00:00.
+[2025-12-01 14:12:55Z INFO JobServerQueue] Start process web console line queue.
+[2025-12-01 14:12:55Z INFO JobServerQueue] Start process file upload queue.
+[2025-12-01 14:12:55Z INFO JobServerQueue] Start results file upload queue.
+[2025-12-01 14:12:55Z INFO JobServerQueue] Starting results-based upload queue...
+[2025-12-01 14:12:55Z INFO JobServerQueue] Start process timeline update queue.
+[2025-12-01 14:12:55Z INFO ExecutionContext] Initializing Job context
+[2025-12-01 14:12:55Z INFO ExecutionContext] Initialize GitHub context
+[2025-12-01 14:12:55Z INFO ExecutionContext] Initialize Env context
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Diag': '/home/pompom/assign_2/actions-runner/_diag'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Diag': '/home/pompom/assign_2/actions-runner/_diag'
+[2025-12-01 14:12:55Z INFO JobRunner] Starting the job execution context.
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Work': '/home/pompom/assign_2/actions-runner/_work'
+[2025-12-01 14:12:55Z INFO JobRunner] Validating directory permissions for: '/home/pompom/assign_2/actions-runner/_work'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Work': '/home/pompom/assign_2/actions-runner/_work'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Tools': '/home/pompom/assign_2/actions-runner/_work/_tool'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Work': '/home/pompom/assign_2/actions-runner/_work'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Temp': '/home/pompom/assign_2/actions-runner/_work/_temp'
+[2025-12-01 14:12:55Z INFO JobRunner] Getting job extension.
+[2025-12-01 14:12:55Z INFO JobRunner] Initialize job. Getting all job steps.
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Diag': '/home/pompom/assign_2/actions-runner/_diag'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Diag': '/home/pompom/assign_2/actions-runner/_diag'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known config file 'Credentials': '/home/pompom/assign_2/actions-runner/.credentials'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known config file 'SetupInfo': '/home/pompom/assign_2/actions-runner/.setup_info'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Work': '/home/pompom/assign_2/actions-runner/_work'
+[2025-12-01 14:12:55Z INFO PipelineDirectoryManager] Loading tracking config if exists: /home/pompom/assign_2/actions-runner/_work/_PipelineMapping/pompomv/assign_2/PipelineFolder.json
+[2025-12-01 14:12:55Z INFO PipelineDirectoryManager] Updating job run properties.
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Work': '/home/pompom/assign_2/actions-runner/_work'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Work': '/home/pompom/assign_2/actions-runner/_work'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Work': '/home/pompom/assign_2/actions-runner/_work'
+[2025-12-01 14:12:55Z INFO JobExtension] Downloading actions
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Work': '/home/pompom/assign_2/actions-runner/_work'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Actions': '/home/pompom/assign_2/actions-runner/_work/_actions'
+[2025-12-01 14:12:55Z INFO JobExtension] Adding .
+[2025-12-01 14:12:55Z INFO JobExtension] Adding .
+[2025-12-01 14:12:55Z INFO JobExtension] Adding .
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Diag': '/home/pompom/assign_2/actions-runner/_diag'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Diag': '/home/pompom/assign_2/actions-runner/_diag'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Diag': '/home/pompom/assign_2/actions-runner/_diag'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Diag': '/home/pompom/assign_2/actions-runner/_diag'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Diag': '/home/pompom/assign_2/actions-runner/_diag'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Diag': '/home/pompom/assign_2/actions-runner/_diag'
+[2025-12-01 14:12:55Z INFO JobExtension] Total accessible running process: 26.
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Work': '/home/pompom/assign_2/actions-runner/_work'
+[2025-12-01 14:12:55Z INFO JobExtension] Start checking service connectivity in background.
+[2025-12-01 14:12:55Z INFO ExecutionContext] Publish step telemetry for current step {
+  "action": "setup_job",
+  "type": "runner",
+  "stage": "Pre",
+  "stepId": "49dbdf12-32e3-415e-80c9-a8ff5385de2e",
+  "result": "succeeded",
+  "errorMessages": [],
+  "executionTimeInSeconds": 1,
+  "startTime": "2025-12-01T14:12:55.3473689Z",
+  "finishTime": "2025-12-01T14:12:55.4263256Z"
+}.
+[2025-12-01 14:12:55Z INFO JobRunner] Total job steps: 3.
+[2025-12-01 14:12:55Z INFO JobRunner] Run all job steps.
+[2025-12-01 14:12:55Z INFO StepsRunner] Processing step: DisplayName='Set project path'
+[2025-12-01 14:12:55Z INFO StepsRunner] Evaluating: success()
+[2025-12-01 14:12:55Z INFO StepsRunner] Result: true
+[2025-12-01 14:12:55Z INFO StepsRunner] Starting the step.
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Work': '/home/pompom/assign_2/actions-runner/_work'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Temp': '/home/pompom/assign_2/actions-runner/_work/_temp'
+[2025-12-01 14:12:55Z INFO ExecutionContext] Write event payload to /home/pompom/assign_2/actions-runner/_work/_temp/_github_workflow/event.json
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Work': '/home/pompom/assign_2/actions-runner/_work'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Temp': '/home/pompom/assign_2/actions-runner/_work/_temp'
+[2025-12-01 14:12:55Z INFO ExtensionManager] Getting extensions for interface: 'GitHub.Runner.Worker.IFileCommandExtension'
+[2025-12-01 14:12:55Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.AddPathFileCommand, Runner.Worker
+[2025-12-01 14:12:55Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.SetEnvFileCommand, Runner.Worker
+[2025-12-01 14:12:55Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.CreateStepSummaryCommand, Runner.Worker
+[2025-12-01 14:12:55Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.SaveStateFileCommand, Runner.Worker
+[2025-12-01 14:12:55Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.SetOutputFileCommand, Runner.Worker
+[2025-12-01 14:12:55Z INFO ExtensionManager] Getting extensions for interface: 'GitHub.Runner.Worker.IActionCommandExtension'
+[2025-12-01 14:12:55Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.InternalPluginSetRepoPathCommandExtension, Runner.Worker
+[2025-12-01 14:12:55Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.SetEnvCommandExtension, Runner.Worker
+[2025-12-01 14:12:55Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.SetOutputCommandExtension, Runner.Worker
+[2025-12-01 14:12:55Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.SaveStateCommandExtension, Runner.Worker
+[2025-12-01 14:12:55Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.AddPathCommandExtension, Runner.Worker
+[2025-12-01 14:12:55Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.AddMaskCommandExtension, Runner.Worker
+[2025-12-01 14:12:55Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.AddMatcherCommandExtension, Runner.Worker
+[2025-12-01 14:12:55Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.RemoveMatcherCommandExtension, Runner.Worker
+[2025-12-01 14:12:55Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.WarningCommandExtension, Runner.Worker
+[2025-12-01 14:12:55Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.ErrorCommandExtension, Runner.Worker
+[2025-12-01 14:12:55Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.NoticeCommandExtension, Runner.Worker
+[2025-12-01 14:12:55Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.DebugCommandExtension, Runner.Worker
+[2025-12-01 14:12:55Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.GroupCommandExtension, Runner.Worker
+[2025-12-01 14:12:55Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.EndGroupCommandExtension, Runner.Worker
+[2025-12-01 14:12:55Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.EchoCommandExtension, Runner.Worker
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command internal-set-repo-path
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command set-env
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command set-output
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command save-state
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command add-path
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command add-mask
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command add-matcher
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command remove-matcher
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command warning
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command error
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command notice
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command debug
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command group
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command endgroup
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command echo
+[2025-12-01 14:12:55Z INFO ScriptHandler] Which2: 'bash'
+[2025-12-01 14:12:55Z INFO ScriptHandler] Location: '/usr/bin/bash'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Work': '/home/pompom/assign_2/actions-runner/_work'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Temp': '/home/pompom/assign_2/actions-runner/_work/_temp'
+[2025-12-01 14:12:55Z INFO ScriptHandler] Which2: 'bash'
+[2025-12-01 14:12:55Z INFO ScriptHandler] Location: '/usr/bin/bash'
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper] Starting process:
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper]   File name: '/usr/bin/bash'
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper]   Arguments: '-e /home/pompom/assign_2/actions-runner/_work/_temp/d7363e9c-e9e6-4c03-b261-b311be63845d.sh'
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper]   Working directory: '/home/pompom/assign_2/actions-runner/_work/assign_2/assign_2'
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'False'
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper]   High priority process: 'False'
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper] Failed to update oom_score_adj for PID: 2994.
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper] System.UnauthorizedAccessException: Access to the path '/proc/2994/oom_score_adj' is denied.
+ ---> System.IO.IOException: Permission denied
+   --- End of inner exception stack trace ---
+   at Interop.ThrowExceptionForIoErrno(ErrorInfo errorInfo, String path, Boolean isDirError)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String path, OpenFlags flags, Int32 mode, Boolean failForSymlink, Boolean& wasSymlink, Func`4 createOpenException)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, UnixFileMode openPermissions, Int64& fileLength, UnixFileMode& filePermissions, Boolean failForSymlink, Boolean& wasSymlink, Func`4 createOpenException)
+   at System.IO.File.OpenHandle(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.File.WriteToFile(String path, FileMode mode, String contents, Encoding encoding)
+   at GitHub.Runner.Sdk.ProcessInvoker.WriteProcessOomScoreAdj(Int32 processId, Int32 oomScoreAdj)
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper] Process started with process id 2994, waiting for process exit.
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper] Finished process 2994 with exit code 0, and elapsed time 00:00:00.0144516.
+[2025-12-01 14:12:55Z INFO Worker] Listening for cancel message from the channel.
+[2025-12-01 14:12:55Z INFO CreateStepSummaryCommand] Step Summary file (/home/pompom/assign_2/actions-runner/_work/_temp/_runner_file_commands/step_summary_9f83a7ba-39b1-4511-a291-894ae8248346) is empty; skipping attachment upload
+[2025-12-01 14:12:55Z INFO Worker] Waiting for the job to complete or for a cancel message from the channel.
+[2025-12-01 14:12:55Z INFO StepsRunner] Step result: 
+[2025-12-01 14:12:55Z INFO ExecutionContext] Publish step telemetry for current step {
+  "action": "sh",
+  "type": "run",
+  "stage": "Main",
+  "stepId": "f69df2e1-8830-4ee0-95d0-07e55f5a7d8c",
+  "stepContextName": "__run",
+  "result": "succeeded",
+  "errorMessages": [],
+  "executionTimeInSeconds": 1,
+  "startTime": "2025-12-01T14:12:55.4375585Z",
+  "finishTime": "2025-12-01T14:12:55.5282789Z"
+}.
+[2025-12-01 14:12:55Z INFO StepsRunner] No need for updating job result with current step result 'Succeeded'.
+[2025-12-01 14:12:55Z INFO StepsRunner] Current state: job state = ''
+[2025-12-01 14:12:55Z INFO StepsRunner] Processing step: DisplayName='Pull latest changes'
+[2025-12-01 14:12:55Z INFO StepsRunner] Evaluating: success()
+[2025-12-01 14:12:55Z INFO StepsRunner] Result: true
+[2025-12-01 14:12:55Z INFO StepsRunner] Starting the step.
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Work': '/home/pompom/assign_2/actions-runner/_work'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Temp': '/home/pompom/assign_2/actions-runner/_work/_temp'
+[2025-12-01 14:12:55Z INFO ExecutionContext] Write event payload to /home/pompom/assign_2/actions-runner/_work/_temp/_github_workflow/event.json
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Work': '/home/pompom/assign_2/actions-runner/_work'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Temp': '/home/pompom/assign_2/actions-runner/_work/_temp'
+[2025-12-01 14:12:55Z INFO ExtensionManager] Getting extensions for interface: 'GitHub.Runner.Worker.IFileCommandExtension'
+[2025-12-01 14:12:55Z INFO ExtensionManager] Getting extensions for interface: 'GitHub.Runner.Worker.IActionCommandExtension'
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command internal-set-repo-path
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command set-env
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command set-output
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command save-state
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command add-path
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command add-mask
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command add-matcher
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command remove-matcher
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command warning
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command error
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command notice
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command debug
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command group
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command endgroup
+[2025-12-01 14:12:55Z INFO ActionCommandManager] Register action command extension for command echo
+[2025-12-01 14:12:55Z INFO ScriptHandler] Which2: 'bash'
+[2025-12-01 14:12:55Z INFO ScriptHandler] Location: '/usr/bin/bash'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Work': '/home/pompom/assign_2/actions-runner/_work'
+[2025-12-01 14:12:55Z INFO HostContext] Well known directory 'Temp': '/home/pompom/assign_2/actions-runner/_work/_temp'
+[2025-12-01 14:12:55Z INFO ScriptHandler] Which2: 'bash'
+[2025-12-01 14:12:55Z INFO ScriptHandler] Location: '/usr/bin/bash'
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper] Starting process:
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper]   File name: '/usr/bin/bash'
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper]   Arguments: '-e /home/pompom/assign_2/actions-runner/_work/_temp/17794f64-4706-42c3-8aa9-61f63b898e7b.sh'
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper]   Working directory: '/home/pompom/assign_2'
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'False'
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper]   High priority process: 'False'
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper] Updated oom_score_adj to 500 for PID: 2996.
+[2025-12-01 14:12:55Z INFO ProcessInvokerWrapper] Process started with process id 2996, waiting for process exit.
+[2025-12-01 14:12:56Z INFO JobServerQueue] Got a step log file to send to results service.
+[2025-12-01 14:12:56Z INFO JobServerQueue] Starting upload of step log file to results service ResultsLog, /home/pompom/assign_2/actions-runner/_diag/blocks/384cd1d5-e829-4f00-98db-3204fdfde901_49dbdf12-32e3-415e-80c9-a8ff5385de2e.1
+[2025-12-01 14:12:56Z INFO JobServerQueue] Try to upload 2 log files or attachments, success rate: 2/2.
+[2025-12-01 14:12:56Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-12-01 14:12:56Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-12-01 14:12:56Z INFO ProcessInvokerWrapper] Finished process 2996 with exit code 0, and elapsed time 00:00:01.0689050.
+[2025-12-01 14:12:56Z INFO CreateStepSummaryCommand] Step Summary file (/home/pompom/assign_2/actions-runner/_work/_temp/_runner_file_commands/step_summary_6f70d643-a8a3-478c-afd4-9291a7b73d9b) is empty; skipping attachment upload
+[2025-12-01 14:12:56Z INFO StepsRunner] Step result: 
+[2025-12-01 14:12:56Z INFO ExecutionContext] Publish step telemetry for current step {
+  "action": "sh",
+  "type": "run",
+  "stage": "Main",
+  "stepId": "400febb3-c443-4c1c-8d16-c62137511ccd",
+  "stepContextName": "__run_2",
+  "result": "succeeded",
+  "errorMessages": [],
+  "executionTimeInSeconds": 2,
+  "startTime": "2025-12-01T14:12:55.5293209Z",
+  "finishTime": "2025-12-01T14:12:56.6061008Z"
+}.
+[2025-12-01 14:12:56Z INFO StepsRunner] No need for updating job result with current step result 'Succeeded'.
+[2025-12-01 14:12:56Z INFO StepsRunner] Current state: job state = ''
+[2025-12-01 14:12:56Z INFO StepsRunner] Processing step: DisplayName='Restart Docker'
+[2025-12-01 14:12:56Z INFO StepsRunner] Evaluating: success()
+[2025-12-01 14:12:56Z INFO StepsRunner] Result: true
+[2025-12-01 14:12:56Z INFO StepsRunner] Starting the step.
+[2025-12-01 14:12:56Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:56Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:56Z INFO HostContext] Well known directory 'Work': '/home/pompom/assign_2/actions-runner/_work'
+[2025-12-01 14:12:56Z INFO HostContext] Well known directory 'Temp': '/home/pompom/assign_2/actions-runner/_work/_temp'
+[2025-12-01 14:12:56Z INFO ExecutionContext] Write event payload to /home/pompom/assign_2/actions-runner/_work/_temp/_github_workflow/event.json
+[2025-12-01 14:12:56Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:56Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:56Z INFO HostContext] Well known directory 'Work': '/home/pompom/assign_2/actions-runner/_work'
+[2025-12-01 14:12:56Z INFO HostContext] Well known directory 'Temp': '/home/pompom/assign_2/actions-runner/_work/_temp'
+[2025-12-01 14:12:56Z INFO ExtensionManager] Getting extensions for interface: 'GitHub.Runner.Worker.IFileCommandExtension'
+[2025-12-01 14:12:56Z INFO ExtensionManager] Getting extensions for interface: 'GitHub.Runner.Worker.IActionCommandExtension'
+[2025-12-01 14:12:56Z INFO ActionCommandManager] Register action command extension for command internal-set-repo-path
+[2025-12-01 14:12:56Z INFO ActionCommandManager] Register action command extension for command set-env
+[2025-12-01 14:12:56Z INFO ActionCommandManager] Register action command extension for command set-output
+[2025-12-01 14:12:56Z INFO ActionCommandManager] Register action command extension for command save-state
+[2025-12-01 14:12:56Z INFO ActionCommandManager] Register action command extension for command add-path
+[2025-12-01 14:12:56Z INFO ActionCommandManager] Register action command extension for command add-mask
+[2025-12-01 14:12:56Z INFO ActionCommandManager] Register action command extension for command add-matcher
+[2025-12-01 14:12:56Z INFO ActionCommandManager] Register action command extension for command remove-matcher
+[2025-12-01 14:12:56Z INFO ActionCommandManager] Register action command extension for command warning
+[2025-12-01 14:12:56Z INFO ActionCommandManager] Register action command extension for command error
+[2025-12-01 14:12:56Z INFO ActionCommandManager] Register action command extension for command notice
+[2025-12-01 14:12:56Z INFO ActionCommandManager] Register action command extension for command debug
+[2025-12-01 14:12:56Z INFO ActionCommandManager] Register action command extension for command group
+[2025-12-01 14:12:56Z INFO ActionCommandManager] Register action command extension for command endgroup
+[2025-12-01 14:12:56Z INFO ActionCommandManager] Register action command extension for command echo
+[2025-12-01 14:12:56Z INFO ScriptHandler] Which2: 'bash'
+[2025-12-01 14:12:56Z INFO ScriptHandler] Location: '/usr/bin/bash'
+[2025-12-01 14:12:56Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:56Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:56Z INFO HostContext] Well known directory 'Work': '/home/pompom/assign_2/actions-runner/_work'
+[2025-12-01 14:12:56Z INFO HostContext] Well known directory 'Temp': '/home/pompom/assign_2/actions-runner/_work/_temp'
+[2025-12-01 14:12:56Z INFO ScriptHandler] Which2: 'bash'
+[2025-12-01 14:12:56Z INFO ScriptHandler] Location: '/usr/bin/bash'
+[2025-12-01 14:12:56Z INFO ProcessInvokerWrapper] Starting process:
+[2025-12-01 14:12:56Z INFO ProcessInvokerWrapper]   File name: '/usr/bin/bash'
+[2025-12-01 14:12:56Z INFO ProcessInvokerWrapper]   Arguments: '-e /home/pompom/assign_2/actions-runner/_work/_temp/69a319b1-a350-4654-a0d4-c22a980fac28.sh'
+[2025-12-01 14:12:56Z INFO ProcessInvokerWrapper]   Working directory: '/home/pompom/assign_2'
+[2025-12-01 14:12:56Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2025-12-01 14:12:56Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2025-12-01 14:12:56Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'False'
+[2025-12-01 14:12:56Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2025-12-01 14:12:56Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2025-12-01 14:12:56Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2025-12-01 14:12:56Z INFO ProcessInvokerWrapper]   High priority process: 'False'
+[2025-12-01 14:12:56Z INFO ProcessInvokerWrapper] Updated oom_score_adj to 500 for PID: 3006.
+[2025-12-01 14:12:56Z INFO ProcessInvokerWrapper] Process started with process id 3006, waiting for process exit.
+[2025-12-01 14:12:56Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-12-01 14:12:56Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-12-01 14:12:56Z INFO ProcessInvokerWrapper] Finished process 3006 with exit code 1, and elapsed time 00:00:00.1967420.
+[2025-12-01 14:12:56Z INFO CreateStepSummaryCommand] Step Summary file (/home/pompom/assign_2/actions-runner/_work/_temp/_runner_file_commands/step_summary_80b024a3-3cb2-44c7-9689-286ae9bd0262) is empty; skipping attachment upload
+[2025-12-01 14:12:56Z INFO StepsRunner] Step result: Failed
+[2025-12-01 14:12:56Z INFO ExecutionContext] Publish step telemetry for current step {
+  "action": "sh",
+  "type": "run",
+  "stage": "Main",
+  "stepId": "8d7d818f-3e94-4a56-88fe-9c1091536f70",
+  "stepContextName": "__run_3",
+  "result": "failed",
+  "errorMessages": [
+    "Process completed with exit code 1."
+  ],
+  "executionTimeInSeconds": 1,
+  "startTime": "2025-12-01T14:12:56.6070761Z",
+  "finishTime": "2025-12-01T14:12:56.8160101Z"
+}.
+[2025-12-01 14:12:56Z INFO StepsRunner] Update job result with current step result 'Failed'.
+[2025-12-01 14:12:56Z INFO StepsRunner] Current state: job state = 'Failed'
+[2025-12-01 14:12:56Z INFO JobRunner] Finalize job.
+[2025-12-01 14:12:56Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:56Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:56Z INFO HostContext] Well known directory 'Diag': '/home/pompom/assign_2/actions-runner/_diag'
+[2025-12-01 14:12:56Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:56Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:56Z INFO HostContext] Well known directory 'Diag': '/home/pompom/assign_2/actions-runner/_diag'
+[2025-12-01 14:12:56Z INFO JobExtension] Initialize Env context
+[2025-12-01 14:12:56Z INFO JobExtension] Initialize steps context
+[2025-12-01 14:12:56Z INFO JobExtension] Total accessible running process: 26.
+[2025-12-01 14:12:56Z INFO ExecutionContext] Publish step telemetry for current step {
+  "action": "complete_job",
+  "type": "runner",
+  "stage": "Post",
+  "stepId": "fad0007b-5114-466e-ab8d-efadff486c7b",
+  "result": "succeeded",
+  "errorMessages": [],
+  "executionTimeInSeconds": 1,
+  "startTime": "2025-12-01T14:12:56.8258319Z",
+  "finishTime": "2025-12-01T14:12:56.8324938Z"
+}.
+[2025-12-01 14:12:56Z INFO JobRunner] Job result after all job steps finish: Failed
+[2025-12-01 14:12:56Z INFO JobRunner] Completing the job execution context.
+[2025-12-01 14:12:56Z INFO JobRunner] Shutting down the job server queue.
+[2025-12-01 14:12:56Z INFO JobServerQueue] Fire signal to shutdown all queues.
+[2025-12-01 14:12:57Z ERR  GitHubActionsService] POST request to https://results-receiver.actions.githubusercontent.com/twirp/results.services.receiver.Receiver/GetStepLogsSignedBlobURL failed. System.Net.Http.HttpRequestException: The SSL connection could not be established, see inner exception.
+ ---> System.IO.FileNotFoundException: Could not load file or assembly 'System.Formats.Asn1, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51'. The system cannot find the file specified.
+
+File name: 'System.Formats.Asn1, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51'
+   at System.Security.Cryptography.X509Certificates.X500NameEncoder.X500DistinguishedNameDecode(Byte[] encodedName, Boolean printOid, Boolean reverse, Boolean quoteIfNeeded, String dnSeparator, String multiValueSeparator, Boolean addTrailingDelimiter)
+   at System.Security.Cryptography.X509Certificates.X500NameEncoder.X500DistinguishedNameDecode(Byte[] encodedName, Boolean printOid, X500DistinguishedNameFlags flags, Boolean addTrailingDelimiter)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.<>c.<get_Subject>b__28_0(SafeX509Handle cert)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.UseCertInteriorData[T](Func`2 callback)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.get_Subject()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.<LoadMachineStores>g__ProcessFile|26_1(String file, DateTime& lastModified, Boolean skipStat, <>c__DisplayClass26_0&)
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.LoadMachineStores()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.GetCollections()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.GetNativeCollections(SafeX509StackHandle& root, SafeX509StackHandle& intermediate)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509ChainProcessor.InitiateChain(SafeX509Handle leafHandle, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan remainingDownloadTime)
+   at System.Security.Cryptography.X509Certificates.ChainPal.BuildChainCore(Boolean useMachineContext, ICertificatePal cert, X509Certificate2Collection extraStore, OidCollection applicationPolicy, OidCollection certificatePolicy, X509RevocationMode revocationMode, X509RevocationFlag revocationFlag, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan timeout, Boolean disableAia)
+   at System.Security.Cryptography.X509Certificates.ChainPal.BuildChain(Boolean useMachineContext, ICertificatePal cert, X509Certificate2Collection extraStore, OidCollection applicationPolicy, OidCollection certificatePolicy, X509RevocationMode revocationMode, X509RevocationFlag revocationFlag, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan timeout, Boolean disableAia)
+   at System.Security.Cryptography.X509Certificates.X509Chain.Build(X509Certificate2 certificate, Boolean throwOnException)
+   at System.Net.Security.CertificateValidation.BuildChainAndVerifyProperties(X509Chain chain, X509Certificate2 remoteCertificate, Boolean checkCertName, Boolean _, String hostName)
+   at System.Net.Security.SslStream.VerifyRemoteCertificate(RemoteCertificateValidationCallback remoteCertValidationCallback, SslCertificateTrust trust, ProtocolToken& alertToken, SslPolicyErrors& sslPolicyErrors, X509ChainStatusFlags& chainStatus)
+   at System.Net.Security.SslStream.CompleteHandshake(ProtocolToken& alertToken, SslPolicyErrors& sslPolicyErrors, X509ChainStatusFlags& chainStatus)
+   at System.Net.Security.SslStream.CompleteHandshake(SslAuthenticationOptions sslAuthenticationOptions)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Http.ConnectHelper.EstablishSslConnectionAsync(SslClientAuthenticationOptions sslOptions, HttpRequestMessage request, Boolean async, Stream stream, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.EstablishSslConnectionAsync(SslClientAuthenticationOptions sslOptions, HttpRequestMessage request, Boolean async, Stream stream, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.AuthenticationHelper.SendWithAuthAsync(HttpRequestMessage request, Uri authUri, Boolean async, ICredentials credentials, Boolean preAuthenticate, Boolean isProxyAuth, Boolean doRequestAuth, HttpConnectionPool pool, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at GitHub.Services.Common.RawHttpMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at GitHub.Services.Common.VssHttpRetryMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+[2025-12-01 14:12:57Z INFO JobServerQueue] Catch exception during file upload to results, keep going since the process is best effort.
+[2025-12-01 14:12:57Z ERR  GitHubActionsService] POST request to https://results-receiver.actions.githubusercontent.com/twirp/github.actions.results.api.v1.WorkflowStepUpdateService/WorkflowStepsUpdate failed. System.Net.Http.HttpRequestException: The SSL connection could not be established, see inner exception.
+ ---> System.IO.FileNotFoundException: Could not load file or assembly 'System.Formats.Asn1, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51'. The system cannot find the file specified.
+
+File name: 'System.Formats.Asn1, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51'
+   at System.Security.Cryptography.X509Certificates.X500NameEncoder.X500DistinguishedNameDecode(Byte[] encodedName, Boolean printOid, Boolean reverse, Boolean quoteIfNeeded, String dnSeparator, String multiValueSeparator, Boolean addTrailingDelimiter)
+   at System.Security.Cryptography.X509Certificates.X500NameEncoder.X500DistinguishedNameDecode(Byte[] encodedName, Boolean printOid, X500DistinguishedNameFlags flags, Boolean addTrailingDelimiter)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.<>c.<get_Subject>b__28_0(SafeX509Handle cert)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.UseCertInteriorData[T](Func`2 callback)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.get_Subject()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.<LoadMachineStores>g__ProcessFile|26_1(String file, DateTime& lastModified, Boolean skipStat, <>c__DisplayClass26_0&)
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.LoadMachineStores()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.GetCollections()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.GetNativeCollections(SafeX509StackHandle& root, SafeX509StackHandle& intermediate)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509ChainProcessor.InitiateChain(SafeX509Handle leafHandle, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan remainingDownloadTime)
+   at System.Security.Cryptography.X509Certificates.ChainPal.BuildChainCore(Boolean useMachineContext, ICertificatePal cert, X509Certificate2Collection extraStore, OidCollection applicationPolicy, OidCollection certificatePolicy, X509RevocationMode revocationMode, X509RevocationFlag revocationFlag, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan timeout, Boolean disableAia)
+   at System.Security.Cryptography.X509Certificates.ChainPal.BuildChain(Boolean useMachineContext, ICertificatePal cert, X509Certificate2Collection extraStore, OidCollection applicationPolicy, OidCollection certificatePolicy, X509RevocationMode revocationMode, X509RevocationFlag revocationFlag, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan timeout, Boolean disableAia)
+   at System.Security.Cryptography.X509Certificates.X509Chain.Build(X509Certificate2 certificate, Boolean throwOnException)
+   at System.Net.Security.CertificateValidation.BuildChainAndVerifyProperties(X509Chain chain, X509Certificate2 remoteCertificate, Boolean checkCertName, Boolean _, String hostName)
+   at System.Net.Security.SslStream.VerifyRemoteCertificate(RemoteCertificateValidationCallback remoteCertValidationCallback, SslCertificateTrust trust, ProtocolToken& alertToken, SslPolicyErrors& sslPolicyErrors, X509ChainStatusFlags& chainStatus)
+   at System.Net.Security.SslStream.CompleteHandshake(ProtocolToken& alertToken, SslPolicyErrors& sslPolicyErrors, X509ChainStatusFlags& chainStatus)
+   at System.Net.Security.SslStream.CompleteHandshake(SslAuthenticationOptions sslAuthenticationOptions)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Http.ConnectHelper.EstablishSslConnectionAsync(SslClientAuthenticationOptions sslOptions, HttpRequestMessage request, Boolean async, Stream stream, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.EstablishSslConnectionAsync(SslClientAuthenticationOptions sslOptions, HttpRequestMessage request, Boolean async, Stream stream, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.AuthenticationHelper.SendWithAuthAsync(HttpRequestMessage request, Uri authUri, Boolean async, ICredentials credentials, Boolean preAuthenticate, Boolean isProxyAuth, Boolean doRequestAuth, HttpConnectionPool pool, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at GitHub.Services.Common.RawHttpMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at GitHub.Services.Common.VssHttpRetryMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+[2025-12-01 14:12:57Z INFO JobServerQueue] Catch exception during update steps, skip update Results.
+[2025-12-01 14:12:57Z INFO JobServerQueue] Catch exception during update timeline records, try to update these timeline records next time.
+[2025-12-01 14:12:57Z ERR  JobServerQueue] System.TypeLoadException: Could not resolve type 'GitHub.Services.Results.Client.ResultsHttpClient' in assembly 'Sdk, Version=2.329.0.0, Culture=neutral, PublicKeyToken=null'.
+   at System.Reflection.TypeNameParser.GetTypeFromDefaultAssemblies(String typeName, ReadOnlySpan`1 nestedTypeNames)
+   at System.Reflection.TypeNameParser.GetType(String typeName, ReadOnlySpan`1 nestedTypeNames, String assemblyNameIfAny)
+   at System.Reflection.TypeNameParser.NestedNamespaceTypeName.ResolveType(TypeNameParser& parser, String containingAssemblyIfAny)
+   at System.Reflection.TypeNameParser.GetTypeHelper(Char* pTypeName, RuntimeAssembly requestingAssembly, Boolean throwOnError, Boolean requireAssemblyQualifiedName)
+   at System.Reflection.CustomAttribute._CreateCaObject(RuntimeModule pModule, RuntimeType type, IRuntimeMethodInfo pCtor, Byte** ppBlob, Byte* pEndBlob, Int32* pcNamedArgs)
+   at System.Reflection.CustomAttribute.CreateCaObject(RuntimeModule module, RuntimeType type, IRuntimeMethodInfo ctor, IntPtr& blob, IntPtr blobEnd, Int32& namedArgs)
+   at System.Reflection.CustomAttribute.AddCustomAttributes(ListBuilder`1& attributes, RuntimeModule decoratedModule, Int32 decoratedMetadataToken, RuntimeType attributeFilterType, Boolean mustBeInheritable, ListBuilder`1 derivedAttributes)
+   at System.Reflection.CustomAttribute.GetCustomAttributes(RuntimeModule decoratedModule, Int32 decoratedMetadataToken, Int32 pcaCount, RuntimeType attributeFilterType)
+   at System.Reflection.CustomAttribute.GetCustomAttributes(RuntimeMethodInfo method, RuntimeType caType, Boolean inherit)
+   at System.Attribute.GetCustomAttributes(MemberInfo element, Type attributeType, Boolean inherit)
+   at System.Diagnostics.StackTrace.TryResolveStateMachineMethod(MethodBase& method, Type& declaringType)
+   at System.Diagnostics.StackTrace.ToString(TraceFormat traceFormat, StringBuilder sb)
+   at System.Diagnostics.StackTrace.ToString(TraceFormat traceFormat)
+   at System.Exception.get_StackTrace()
+   at System.Exception.ToString()
+   at GitHub.Runner.Common.Tracing.Error(Exception exception)
+   at GitHub.Runner.Common.JobServerQueue.ProcessTimelinesUpdateQueueAsync(Boolean runOnce)
+[2025-12-01 14:12:58Z INFO ResultServer] Exception caught during websocket client connect, retry connection.
+[2025-12-01 14:12:58Z ERR  ResultServer] System.Net.WebSockets.WebSocketException (0x80004005): Unable to connect to the remote server
+ ---> System.Net.Http.HttpRequestException: The SSL connection could not be established, see inner exception.
+ ---> System.IO.FileNotFoundException: Could not load file or assembly 'System.Formats.Asn1, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51'. The system cannot find the file specified.
+
+File name: 'System.Formats.Asn1, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51'
+   at System.Security.Cryptography.X509Certificates.X500NameEncoder.X500DistinguishedNameDecode(Byte[] encodedName, Boolean printOid, Boolean reverse, Boolean quoteIfNeeded, String dnSeparator, String multiValueSeparator, Boolean addTrailingDelimiter)
+   at System.Security.Cryptography.X509Certificates.X500NameEncoder.X500DistinguishedNameDecode(Byte[] encodedName, Boolean printOid, X500DistinguishedNameFlags flags, Boolean addTrailingDelimiter)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.<>c.<get_Subject>b__28_0(SafeX509Handle cert)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.UseCertInteriorData[T](Func`2 callback)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.get_Subject()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.<LoadMachineStores>g__ProcessFile|26_1(String file, DateTime& lastModified, Boolean skipStat, <>c__DisplayClass26_0&)
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.LoadMachineStores()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.GetCollections()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.GetNativeCollections(SafeX509StackHandle& root, SafeX509StackHandle& intermediate)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509ChainProcessor.InitiateChain(SafeX509Handle leafHandle, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan remainingDownloadTime)
+   at System.Security.Cryptography.X509Certificates.ChainPal.BuildChainCore(Boolean useMachineContext, ICertificatePal cert, X509Certificate2Collection extraStore, OidCollection applicationPolicy, OidCollection certificatePolicy, X509RevocationMode revocationMode, X509RevocationFlag revocationFlag, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan timeout, Boolean disableAia)
+   at System.Security.Cryptography.X509Certificates.ChainPal.BuildChain(Boolean useMachineContext, ICertificatePal cert, X509Certificate2Collection extraStore, OidCollection applicationPolicy, OidCollection certificatePolicy, X509RevocationMode revocationMode, X509RevocationFlag revocationFlag, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan timeout, Boolean disableAia)
+   at System.Security.Cryptography.X509Certificates.X509Chain.Build(X509Certificate2 certificate, Boolean throwOnException)
+   at System.Net.Security.CertificateValidation.BuildChainAndVerifyProperties(X509Chain chain, X509Certificate2 remoteCertificate, Boolean checkCertName, Boolean _, String hostName)
+   at System.Net.Security.SslStream.VerifyRemoteCertificate(RemoteCertificateValidationCallback remoteCertValidationCallback, SslCertificateTrust trust, ProtocolToken& alertToken, SslPolicyErrors& sslPolicyErrors, X509ChainStatusFlags& chainStatus)
+   at System.Net.Security.SslStream.CompleteHandshake(ProtocolToken& alertToken, SslPolicyErrors& sslPolicyErrors, X509ChainStatusFlags& chainStatus)
+   at System.Net.Security.SslStream.CompleteHandshake(SslAuthenticationOptions sslAuthenticationOptions)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Http.ConnectHelper.EstablishSslConnectionAsync(SslClientAuthenticationOptions sslOptions, HttpRequestMessage request, Boolean async, Stream stream, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.EstablishSslConnectionAsync(SslClientAuthenticationOptions sslOptions, HttpRequestMessage request, Boolean async, Stream stream, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.WebSockets.WebSocketHandle.ConnectAsync(Uri uri, HttpMessageInvoker invoker, CancellationToken cancellationToken, ClientWebSocketOptions options)
+   at System.Net.WebSockets.WebSocketHandle.ConnectAsync(Uri uri, HttpMessageInvoker invoker, CancellationToken cancellationToken, ClientWebSocketOptions options)
+   at System.Net.WebSockets.ClientWebSocket.ConnectAsyncCore(Uri uri, HttpMessageInvoker invoker, CancellationToken cancellationToken)
+   at GitHub.Runner.Common.ResultServer.ConnectWebSocketClient(String feedStreamUrl, TimeSpan delay, Boolean retryConnection)
+[2025-12-01 14:12:58Z ERR  ResultServer] #####################################################
+[2025-12-01 14:12:58Z ERR  ResultServer] System.Net.Http.HttpRequestException: The SSL connection could not be established, see inner exception.
+ ---> System.IO.FileNotFoundException: Could not load file or assembly 'System.Formats.Asn1, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51'. The system cannot find the file specified.
+
+File name: 'System.Formats.Asn1, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51'
+   at System.Security.Cryptography.X509Certificates.X500NameEncoder.X500DistinguishedNameDecode(Byte[] encodedName, Boolean printOid, Boolean reverse, Boolean quoteIfNeeded, String dnSeparator, String multiValueSeparator, Boolean addTrailingDelimiter)
+   at System.Security.Cryptography.X509Certificates.X500NameEncoder.X500DistinguishedNameDecode(Byte[] encodedName, Boolean printOid, X500DistinguishedNameFlags flags, Boolean addTrailingDelimiter)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.<>c.<get_Subject>b__28_0(SafeX509Handle cert)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.UseCertInteriorData[T](Func`2 callback)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.get_Subject()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.<LoadMachineStores>g__ProcessFile|26_1(String file, DateTime& lastModified, Boolean skipStat, <>c__DisplayClass26_0&)
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.LoadMachineStores()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.GetCollections()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.GetNativeCollections(SafeX509StackHandle& root, SafeX509StackHandle& intermediate)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509ChainProcessor.InitiateChain(SafeX509Handle leafHandle, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan remainingDownloadTime)
+   at System.Security.Cryptography.X509Certificates.ChainPal.BuildChainCore(Boolean useMachineContext, ICertificatePal cert, X509Certificate2Collection extraStore, OidCollection applicationPolicy, OidCollection certificatePolicy, X509RevocationMode revocationMode, X509RevocationFlag revocationFlag, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan timeout, Boolean disableAia)
+   at System.Security.Cryptography.X509Certificates.ChainPal.BuildChain(Boolean useMachineContext, ICertificatePal cert, X509Certificate2Collection extraStore, OidCollection applicationPolicy, OidCollection certificatePolicy, X509RevocationMode revocationMode, X509RevocationFlag revocationFlag, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan timeout, Boolean disableAia)
+   at System.Security.Cryptography.X509Certificates.X509Chain.Build(X509Certificate2 certificate, Boolean throwOnException)
+   at System.Net.Security.CertificateValidation.BuildChainAndVerifyProperties(X509Chain chain, X509Certificate2 remoteCertificate, Boolean checkCertName, Boolean _, String hostName)
+   at System.Net.Security.SslStream.VerifyRemoteCertificate(RemoteCertificateValidationCallback remoteCertValidationCallback, SslCertificateTrust trust, ProtocolToken& alertToken, SslPolicyErrors& sslPolicyErrors, X509ChainStatusFlags& chainStatus)
+   at System.Net.Security.SslStream.CompleteHandshake(ProtocolToken& alertToken, SslPolicyErrors& sslPolicyErrors, X509ChainStatusFlags& chainStatus)
+   at System.Net.Security.SslStream.CompleteHandshake(SslAuthenticationOptions sslAuthenticationOptions)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Http.ConnectHelper.EstablishSslConnectionAsync(SslClientAuthenticationOptions sslOptions, HttpRequestMessage request, Boolean async, Stream stream, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.EstablishSslConnectionAsync(SslClientAuthenticationOptions sslOptions, HttpRequestMessage request, Boolean async, Stream stream, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.WebSockets.WebSocketHandle.ConnectAsync(Uri uri, HttpMessageInvoker invoker, CancellationToken cancellationToken, ClientWebSocketOptions options)
+[2025-12-01 14:12:58Z ERR  ResultServer] #####################################################
+[2025-12-01 14:12:58Z ERR  ResultServer] System.IO.FileNotFoundException: Could not load file or assembly 'System.Formats.Asn1, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51'. The system cannot find the file specified.
+
+File name: 'System.Formats.Asn1, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51'
+   at System.Security.Cryptography.X509Certificates.X500NameEncoder.X500DistinguishedNameDecode(Byte[] encodedName, Boolean printOid, Boolean reverse, Boolean quoteIfNeeded, String dnSeparator, String multiValueSeparator, Boolean addTrailingDelimiter)
+   at System.Security.Cryptography.X509Certificates.X500NameEncoder.X500DistinguishedNameDecode(Byte[] encodedName, Boolean printOid, X500DistinguishedNameFlags flags, Boolean addTrailingDelimiter)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.<>c.<get_Subject>b__28_0(SafeX509Handle cert)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.UseCertInteriorData[T](Func`2 callback)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.get_Subject()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.<LoadMachineStores>g__ProcessFile|26_1(String file, DateTime& lastModified, Boolean skipStat, <>c__DisplayClass26_0&)
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.LoadMachineStores()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.GetCollections()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.GetNativeCollections(SafeX509StackHandle& root, SafeX509StackHandle& intermediate)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509ChainProcessor.InitiateChain(SafeX509Handle leafHandle, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan remainingDownloadTime)
+   at System.Security.Cryptography.X509Certificates.ChainPal.BuildChainCore(Boolean useMachineContext, ICertificatePal cert, X509Certificate2Collection extraStore, OidCollection applicationPolicy, OidCollection certificatePolicy, X509RevocationMode revocationMode, X509RevocationFlag revocationFlag, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan timeout, Boolean disableAia)
+   at System.Security.Cryptography.X509Certificates.ChainPal.BuildChain(Boolean useMachineContext, ICertificatePal cert, X509Certificate2Collection extraStore, OidCollection applicationPolicy, OidCollection certificatePolicy, X509RevocationMode revocationMode, X509RevocationFlag revocationFlag, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan timeout, Boolean disableAia)
+   at System.Security.Cryptography.X509Certificates.X509Chain.Build(X509Certificate2 certificate, Boolean throwOnException)
+   at System.Net.Security.CertificateValidation.BuildChainAndVerifyProperties(X509Chain chain, X509Certificate2 remoteCertificate, Boolean checkCertName, Boolean _, String hostName)
+   at System.Net.Security.SslStream.VerifyRemoteCertificate(RemoteCertificateValidationCallback remoteCertValidationCallback, SslCertificateTrust trust, ProtocolToken& alertToken, SslPolicyErrors& sslPolicyErrors, X509ChainStatusFlags& chainStatus)
+   at System.Net.Security.SslStream.CompleteHandshake(ProtocolToken& alertToken, SslPolicyErrors& sslPolicyErrors, X509ChainStatusFlags& chainStatus)
+   at System.Net.Security.SslStream.CompleteHandshake(SslAuthenticationOptions sslAuthenticationOptions)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Http.ConnectHelper.EstablishSslConnectionAsync(SslClientAuthenticationOptions sslOptions, HttpRequestMessage request, Boolean async, Stream stream, CancellationToken cancellationToken)
+[2025-12-01 14:12:58Z INFO ResultServer] Attempting to start websocket client with delay 00:00:00.
+[2025-12-01 14:12:58Z INFO ResultServer] Exception caught during websocket client connect, retry connection.
+[2025-12-01 14:12:58Z ERR  ResultServer] System.NullReferenceException: Object reference not set to an instance of an object.
+   at GitHub.Runner.Common.ResultServer.ConnectWebSocketClient(String feedStreamUrl, TimeSpan delay, Boolean retryConnection)
+[2025-12-01 14:12:58Z INFO ResultServer] Attempting to start websocket client with delay 00:00:00.
+[2025-12-01 14:12:58Z INFO ResultServer] Exception caught during websocket client connect, retry connection.
+[2025-12-01 14:12:58Z ERR  ResultServer] System.NullReferenceException: Object reference not set to an instance of an object.
+   at GitHub.Runner.Common.ResultServer.ConnectWebSocketClient(String feedStreamUrl, TimeSpan delay, Boolean retryConnection)
+[2025-12-01 14:12:58Z INFO JobServerQueue] Try to append 1 batches web console lines for record '49dbdf12-32e3-415e-80c9-a8ff5385de2e', success rate: 1/1.
+[2025-12-01 14:12:58Z INFO JobServerQueue] Try to append 1 batches web console lines for record 'f69df2e1-8830-4ee0-95d0-07e55f5a7d8c', success rate: 1/1.
+[2025-12-01 14:12:58Z INFO JobServerQueue] Try to append 1 batches web console lines for record '400febb3-c443-4c1c-8d16-c62137511ccd', success rate: 1/1.
+[2025-12-01 14:12:58Z ERR  JobRunner] Caught exception from JobServerQueue.ShutdownAsync
+[2025-12-01 14:12:58Z ERR  JobRunner] System.TypeLoadException: Could not resolve type 'GitHub.Services.Results.Client.ResultsHttpClient' in assembly 'Sdk, Version=2.329.0.0, Culture=neutral, PublicKeyToken=null'.
+   at System.Reflection.TypeNameParser.GetTypeFromDefaultAssemblies(String typeName, ReadOnlySpan`1 nestedTypeNames)
+   at System.Reflection.TypeNameParser.GetType(String typeName, ReadOnlySpan`1 nestedTypeNames, String assemblyNameIfAny)
+   at System.Reflection.TypeNameParser.NestedNamespaceTypeName.ResolveType(TypeNameParser& parser, String containingAssemblyIfAny)
+   at System.Reflection.TypeNameParser.GetTypeHelper(Char* pTypeName, RuntimeAssembly requestingAssembly, Boolean throwOnError, Boolean requireAssemblyQualifiedName)
+   at System.Reflection.CustomAttribute._CreateCaObject(RuntimeModule pModule, RuntimeType type, IRuntimeMethodInfo pCtor, Byte** ppBlob, Byte* pEndBlob, Int32* pcNamedArgs)
+   at System.Reflection.CustomAttribute.CreateCaObject(RuntimeModule module, RuntimeType type, IRuntimeMethodInfo ctor, IntPtr& blob, IntPtr blobEnd, Int32& namedArgs)
+   at System.Reflection.CustomAttribute.AddCustomAttributes(ListBuilder`1& attributes, RuntimeModule decoratedModule, Int32 decoratedMetadataToken, RuntimeType attributeFilterType, Boolean mustBeInheritable, ListBuilder`1 derivedAttributes)
+   at System.Reflection.CustomAttribute.GetCustomAttributes(RuntimeModule decoratedModule, Int32 decoratedMetadataToken, Int32 pcaCount, RuntimeType attributeFilterType)
+   at System.Reflection.CustomAttribute.GetCustomAttributes(RuntimeMethodInfo method, RuntimeType caType, Boolean inherit)
+   at System.Attribute.GetCustomAttributes(MemberInfo element, Type attributeType, Boolean inherit)
+   at System.Diagnostics.StackTrace.TryResolveStateMachineMethod(MethodBase& method, Type& declaringType)
+   at System.Diagnostics.StackTrace.ToString(TraceFormat traceFormat, StringBuilder sb)
+   at System.Diagnostics.StackTrace.ToString(TraceFormat traceFormat)
+   at System.Exception.get_StackTrace()
+   at System.Exception.ToString()
+   at GitHub.Runner.Common.Tracing.Error(Exception exception)
+   at GitHub.Runner.Common.JobServerQueue.ProcessResultsUploadQueueAsync(Boolean runOnce)
+   at GitHub.Runner.Common.JobServerQueue.ShutdownAsync()
+   at GitHub.Runner.Worker.JobRunner.ShutdownQueue(Boolean throwOnFailure)
+[2025-12-01 14:12:58Z INFO TempDirectoryManager] Cleaning runner temp folder: /home/pompom/assign_2/actions-runner/_work/_temp
+[2025-12-01 14:12:58Z INFO HostContext] Well known directory 'Bin': '/home/pompom/assign_2/actions-runner/bin'
+[2025-12-01 14:12:58Z INFO HostContext] Well known directory 'Root': '/home/pompom/assign_2/actions-runner'
+[2025-12-01 14:12:58Z INFO HostContext] Well known directory 'Diag': '/home/pompom/assign_2/actions-runner/_diag'
+[2025-12-01 14:12:58Z INFO HostContext] Well known config file 'Telemetry': '/home/pompom/assign_2/actions-runner/_diag/.telemetry'
+[2025-12-01 14:12:58Z INFO JobRunner] Raising job completed against run service
+[2025-12-01 14:12:58Z ERR  GitHubActionsService] POST request to https://run-actions-3-azure-eastus.actions.githubusercontent.com/88/completejob failed. System.Net.Http.HttpRequestException: The SSL connection could not be established, see inner exception.
+ ---> System.IO.FileNotFoundException: Could not load file or assembly 'System.Formats.Asn1, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51'. The system cannot find the file specified.
+
+File name: 'System.Formats.Asn1, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51'
+   at System.Security.Cryptography.X509Certificates.X500NameEncoder.X500DistinguishedNameDecode(Byte[] encodedName, Boolean printOid, Boolean reverse, Boolean quoteIfNeeded, String dnSeparator, String multiValueSeparator, Boolean addTrailingDelimiter)
+   at System.Security.Cryptography.X509Certificates.X500NameEncoder.X500DistinguishedNameDecode(Byte[] encodedName, Boolean printOid, X500DistinguishedNameFlags flags, Boolean addTrailingDelimiter)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.<>c.<get_Subject>b__28_0(SafeX509Handle cert)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.UseCertInteriorData[T](Func`2 callback)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.get_Subject()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.<LoadMachineStores>g__ProcessFile|26_1(String file, DateTime& lastModified, Boolean skipStat, <>c__DisplayClass26_0&)
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.LoadMachineStores()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.GetCollections()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.GetNativeCollections(SafeX509StackHandle& root, SafeX509StackHandle& intermediate)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509ChainProcessor.InitiateChain(SafeX509Handle leafHandle, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan remainingDownloadTime)
+   at System.Security.Cryptography.X509Certificates.ChainPal.BuildChainCore(Boolean useMachineContext, ICertificatePal cert, X509Certificate2Collection extraStore, OidCollection applicationPolicy, OidCollection certificatePolicy, X509RevocationMode revocationMode, X509RevocationFlag revocationFlag, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan timeout, Boolean disableAia)
+   at System.Security.Cryptography.X509Certificates.ChainPal.BuildChain(Boolean useMachineContext, ICertificatePal cert, X509Certificate2Collection extraStore, OidCollection applicationPolicy, OidCollection certificatePolicy, X509RevocationMode revocationMode, X509RevocationFlag revocationFlag, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan timeout, Boolean disableAia)
+   at System.Security.Cryptography.X509Certificates.X509Chain.Build(X509Certificate2 certificate, Boolean throwOnException)
+   at System.Net.Security.CertificateValidation.BuildChainAndVerifyProperties(X509Chain chain, X509Certificate2 remoteCertificate, Boolean checkCertName, Boolean _, String hostName)
+   at System.Net.Security.SslStream.VerifyRemoteCertificate(RemoteCertificateValidationCallback remoteCertValidationCallback, SslCertificateTrust trust, ProtocolToken& alertToken, SslPolicyErrors& sslPolicyErrors, X509ChainStatusFlags& chainStatus)
+   at System.Net.Security.SslStream.CompleteHandshake(ProtocolToken& alertToken, SslPolicyErrors& sslPolicyErrors, X509ChainStatusFlags& chainStatus)
+   at System.Net.Security.SslStream.CompleteHandshake(SslAuthenticationOptions sslAuthenticationOptions)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Http.ConnectHelper.EstablishSslConnectionAsync(SslClientAuthenticationOptions sslOptions, HttpRequestMessage request, Boolean async, Stream stream, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.EstablishSslConnectionAsync(SslClientAuthenticationOptions sslOptions, HttpRequestMessage request, Boolean async, Stream stream, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.AuthenticationHelper.SendWithAuthAsync(HttpRequestMessage request, Uri authUri, Boolean async, ICredentials credentials, Boolean preAuthenticate, Boolean isProxyAuth, Boolean doRequestAuth, HttpConnectionPool pool, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at GitHub.Services.Common.RawHttpMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at GitHub.Services.Common.VssHttpRetryMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+[2025-12-01 14:12:58Z ERR  RunServer] Catch exception during request
+[2025-12-01 14:12:58Z ERR  RunServer] System.Net.Http.HttpRequestException: The SSL connection could not be established, see inner exception.
+ ---> System.IO.FileNotFoundException: Could not load file or assembly 'System.Formats.Asn1, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51'. The system cannot find the file specified.
+
+File name: 'System.Formats.Asn1, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51'
+   at System.Security.Cryptography.X509Certificates.X500NameEncoder.X500DistinguishedNameDecode(Byte[] encodedName, Boolean printOid, Boolean reverse, Boolean quoteIfNeeded, String dnSeparator, String multiValueSeparator, Boolean addTrailingDelimiter)
+   at System.Security.Cryptography.X509Certificates.X500NameEncoder.X500DistinguishedNameDecode(Byte[] encodedName, Boolean printOid, X500DistinguishedNameFlags flags, Boolean addTrailingDelimiter)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.<>c.<get_Subject>b__28_0(SafeX509Handle cert)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.UseCertInteriorData[T](Func`2 callback)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.get_Subject()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.<LoadMachineStores>g__ProcessFile|26_1(String file, DateTime& lastModified, Boolean skipStat, <>c__DisplayClass26_0&)
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.LoadMachineStores()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.GetCollections()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.GetNativeCollections(SafeX509StackHandle& root, SafeX509StackHandle& intermediate)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509ChainProcessor.InitiateChain(SafeX509Handle leafHandle, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan remainingDownloadTime)
+   at System.Security.Cryptography.X509Certificates.ChainPal.BuildChainCore(Boolean useMachineContext, ICertificatePal cert, X509Certificate2Collection extraStore, OidCollection applicationPolicy, OidCollection certificatePolicy, X509RevocationMode revocationMode, X509RevocationFlag revocationFlag, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan timeout, Boolean disableAia)
+   at System.Security.Cryptography.X509Certificates.ChainPal.BuildChain(Boolean useMachineContext, ICertificatePal cert, X509Certificate2Collection extraStore, OidCollection applicationPolicy, OidCollection certificatePolicy, X509RevocationMode revocationMode, X509RevocationFlag revocationFlag, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan timeout, Boolean disableAia)
+   at System.Security.Cryptography.X509Certificates.X509Chain.Build(X509Certificate2 certificate, Boolean throwOnException)
+   at System.Net.Security.CertificateValidation.BuildChainAndVerifyProperties(X509Chain chain, X509Certificate2 remoteCertificate, Boolean checkCertName, Boolean _, String hostName)
+   at System.Net.Security.SslStream.VerifyRemoteCertificate(RemoteCertificateValidationCallback remoteCertValidationCallback, SslCertificateTrust trust, ProtocolToken& alertToken, SslPolicyErrors& sslPolicyErrors, X509ChainStatusFlags& chainStatus)
+   at System.Net.Security.SslStream.CompleteHandshake(ProtocolToken& alertToken, SslPolicyErrors& sslPolicyErrors, X509ChainStatusFlags& chainStatus)
+   at System.Net.Security.SslStream.CompleteHandshake(SslAuthenticationOptions sslAuthenticationOptions)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Http.ConnectHelper.EstablishSslConnectionAsync(SslClientAuthenticationOptions sslOptions, HttpRequestMessage request, Boolean async, Stream stream, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at GitHub.Services.Common.VssHttpRetryMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at Sdk.WebApi.WebApi.RawHttpClientBase.SendAsync(HttpRequestMessage message, HttpCompletionOption completionOption, Object userState, CancellationToken cancellationToken)
+   at Sdk.WebApi.WebApi.RawHttpClientBase.SendAsync(HttpMethod method, Uri requestUri, HttpContent content, IEnumerable`1 queryParameters, Object userState, CancellationToken cancellationToken)
+   at Sdk.WebApi.WebApi.RawHttpClientBase.Send2Async(HttpMethod method, Uri requestUri, HttpContent content, IEnumerable`1 queryParameters, Object userState, CancellationToken cancellationToken)
+   at GitHub.Actions.RunService.WebApi.RunServiceHttpClient.CompleteJobAsync(Uri requestUri, Guid planId, Guid jobId, TaskResult conclusion, Dictionary`2 outputs, IList`1 stepResults, IList`1 jobAnnotations, String environmentUrl, IList`1 telemetry, String billingOwnerId, String infrastructureFailureCategory, CancellationToken cancellationToken)
+   at GitHub.Runner.Common.RunServer.<>c__DisplayClass7_0.<<CompleteJobAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at GitHub.Runner.Common.RunnerService.<>c__DisplayClass12_0.<<RetryRequest>g__wrappedFunc|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at GitHub.Runner.Common.RunnerService.RetryRequest[T](Func`1 func, CancellationToken cancellationToken, Int32 maxAttempts, Func`2 shouldRetry)
+[2025-12-01 14:12:58Z ERR  RunServer] #####################################################
+[2025-12-01 14:12:58Z ERR  RunServer] System.IO.FileNotFoundException: Could not load file or assembly 'System.Formats.Asn1, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51'. The system cannot find the file specified.
+
+File name: 'System.Formats.Asn1, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51'
+   at System.Security.Cryptography.X509Certificates.X500NameEncoder.X500DistinguishedNameDecode(Byte[] encodedName, Boolean printOid, Boolean reverse, Boolean quoteIfNeeded, String dnSeparator, String multiValueSeparator, Boolean addTrailingDelimiter)
+   at System.Security.Cryptography.X509Certificates.X500NameEncoder.X500DistinguishedNameDecode(Byte[] encodedName, Boolean printOid, X500DistinguishedNameFlags flags, Boolean addTrailingDelimiter)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.<>c.<get_Subject>b__28_0(SafeX509Handle cert)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.UseCertInteriorData[T](Func`2 callback)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.get_Subject()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.<LoadMachineStores>g__ProcessFile|26_1(String file, DateTime& lastModified, Boolean skipStat, <>c__DisplayClass26_0&)
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.LoadMachineStores()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.GetCollections()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.GetNativeCollections(SafeX509StackHandle& root, SafeX509StackHandle& intermediate)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509ChainProcessor.InitiateChain(SafeX509Handle leafHandle, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan remainingDownloadTime)
+   at System.Security.Cryptography.X509Certificates.ChainPal.BuildChainCore(Boolean useMachineContext, ICertificatePal cert, X509Certificate2Collection extraStore, OidCollection applicationPolicy, OidCollection certificatePolicy, X509RevocationMode revocationMode, X509RevocationFlag revocationFlag, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan timeout, Boolean disableAia)
+   at System.Security.Cryptography.X509Certificates.ChainPal.BuildChain(Boolean useMachineContext, ICertificatePal cert, X509Certificate2Collection extraStore, OidCollection applicationPolicy, OidCollection certificatePolicy, X509RevocationMode revocationMode, X509RevocationFlag revocationFlag, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan timeout, Boolean disableAia)
+   at System.Security.Cryptography.X509Certificates.X509Chain.Build(X509Certificate2 certificate, Boolean throwOnException)
+   at System.Net.Security.CertificateValidation.BuildChainAndVerifyProperties(X509Chain chain, X509Certificate2 remoteCertificate, Boolean checkCertName, Boolean _, String hostName)
+   at System.Net.Security.SslStream.VerifyRemoteCertificate(RemoteCertificateValidationCallback remoteCertValidationCallback, SslCertificateTrust trust, ProtocolToken& alertToken, SslPolicyErrors& sslPolicyErrors, X509ChainStatusFlags& chainStatus)
+   at System.Net.Security.SslStream.CompleteHandshake(ProtocolToken& alertToken, SslPolicyErrors& sslPolicyErrors, X509ChainStatusFlags& chainStatus)
+   at System.Net.Security.SslStream.CompleteHandshake(SslAuthenticationOptions sslAuthenticationOptions)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Http.ConnectHelper.EstablishSslConnectionAsync(SslClientAuthenticationOptions sslOptions, HttpRequestMessage request, Boolean async, Stream stream, CancellationToken cancellationToken)
+[2025-12-01 14:12:58Z WARN RunServer] Back off 12.301 seconds before next retry. 4 attempt left.
+[2025-12-01 14:13:11Z ERR  GitHubActionsService] POST request to https://run-actions-3-azure-eastus.actions.githubusercontent.com/88/completejob failed. System.Net.Http.HttpRequestException: The SSL connection could not be established, see inner exception.
+ ---> System.IO.FileNotFoundException: Could not load file or assembly 'System.Formats.Asn1, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51'. The system cannot find the file specified.
+
+File name: 'System.Formats.Asn1, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51'
+   at System.Security.Cryptography.X509Certificates.X500NameEncoder.X500DistinguishedNameDecode(Byte[] encodedName, Boolean printOid, Boolean reverse, Boolean quoteIfNeeded, String dnSeparator, String multiValueSeparator, Boolean addTrailingDelimiter)
+   at System.Security.Cryptography.X509Certificates.X500NameEncoder.X500DistinguishedNameDecode(Byte[] encodedName, Boolean printOid, X500DistinguishedNameFlags flags, Boolean addTrailingDelimiter)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.<>c.<get_Subject>b__28_0(SafeX509Handle cert)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.UseCertInteriorData[T](Func`2 callback)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.get_Subject()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.<LoadMachineStores>g__ProcessFile|26_1(String file, DateTime& lastModified, Boolean skipStat, <>c__DisplayClass26_0&)
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.LoadMachineStores()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.GetCollections()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.GetNativeCollections(SafeX509StackHandle& root, SafeX509StackHandle& intermediate)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509ChainProcessor.InitiateChain(SafeX509Handle leafHandle, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan remainingDownloadTime)
+   at System.Security.Cryptography.X509Certificates.ChainPal.BuildChainCore(Boolean useMachineContext, ICertificatePal cert, X509Certificate2Collection extraStore, OidCollection applicationPolicy, OidCollection certificatePolicy, X509RevocationMode revocationMode, X509RevocationFlag revocationFlag, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan timeout, Boolean disableAia)
+   at System.Security.Cryptography.X509Certificates.ChainPal.BuildChain(Boolean useMachineContext, ICertificatePal cert, X509Certificate2Collection extraStore, OidCollection applicationPolicy, OidCollection certificatePolicy, X509RevocationMode revocationMode, X509RevocationFlag revocationFlag, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan timeout, Boolean disableAia)
+   at System.Security.Cryptography.X509Certificates.X509Chain.Build(X509Certificate2 certificate, Boolean throwOnException)
+   at System.Net.Security.CertificateValidation.BuildChainAndVerifyProperties(X509Chain chain, X509Certificate2 remoteCertificate, Boolean checkCertName, Boolean _, String hostName)
+   at System.Net.Security.SslStream.VerifyRemoteCertificate(RemoteCertificateValidationCallback remoteCertValidationCallback, SslCertificateTrust trust, ProtocolToken& alertToken, SslPolicyErrors& sslPolicyErrors, X509ChainStatusFlags& chainStatus)
+   at System.Net.Security.SslStream.CompleteHandshake(ProtocolToken& alertToken, SslPolicyErrors& sslPolicyErrors, X509ChainStatusFlags& chainStatus)
+   at System.Net.Security.SslStream.CompleteHandshake(SslAuthenticationOptions sslAuthenticationOptions)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Http.ConnectHelper.EstablishSslConnectionAsync(SslClientAuthenticationOptions sslOptions, HttpRequestMessage request, Boolean async, Stream stream, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.EstablishSslConnectionAsync(SslClientAuthenticationOptions sslOptions, HttpRequestMessage request, Boolean async, Stream stream, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.AuthenticationHelper.SendWithAuthAsync(HttpRequestMessage request, Uri authUri, Boolean async, ICredentials credentials, Boolean preAuthenticate, Boolean isProxyAuth, Boolean doRequestAuth, HttpConnectionPool pool, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at GitHub.Services.Common.RawHttpMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at GitHub.Services.Common.VssHttpRetryMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+[2025-12-01 14:13:11Z ERR  RunServer] Catch exception during request
+[2025-12-01 14:13:11Z ERR  RunServer] System.Net.Http.HttpRequestException: The SSL connection could not be established, see inner exception.
+ ---> System.IO.FileNotFoundException: Could not load file or assembly 'System.Formats.Asn1, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51'. The system cannot find the file specified.
+
+File name: 'System.Formats.Asn1, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51'
+   at System.Security.Cryptography.X509Certificates.X500NameEncoder.X500DistinguishedNameDecode(Byte[] encodedName, Boolean printOid, Boolean reverse, Boolean quoteIfNeeded, String dnSeparator, String multiValueSeparator, Boolean addTrailingDelimiter)
+   at System.Security.Cryptography.X509Certificates.X500NameEncoder.X500DistinguishedNameDecode(Byte[] encodedName, Boolean printOid, X500DistinguishedNameFlags flags, Boolean addTrailingDelimiter)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.<>c.<get_Subject>b__28_0(SafeX509Handle cert)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.UseCertInteriorData[T](Func`2 callback)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.get_Subject()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.<LoadMachineStores>g__ProcessFile|26_1(String file, DateTime& lastModified, Boolean skipStat, <>c__DisplayClass26_0&)
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.LoadMachineStores()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.GetCollections()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.GetNativeCollections(SafeX509StackHandle& root, SafeX509StackHandle& intermediate)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509ChainProcessor.InitiateChain(SafeX509Handle leafHandle, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan remainingDownloadTime)
+   at System.Security.Cryptography.X509Certificates.ChainPal.BuildChainCore(Boolean useMachineContext, ICertificatePal cert, X509Certificate2Collection extraStore, OidCollection applicationPolicy, OidCollection certificatePolicy, X509RevocationMode revocationMode, X509RevocationFlag revocationFlag, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan timeout, Boolean disableAia)
+   at System.Security.Cryptography.X509Certificates.ChainPal.BuildChain(Boolean useMachineContext, ICertificatePal cert, X509Certificate2Collection extraStore, OidCollection applicationPolicy, OidCollection certificatePolicy, X509RevocationMode revocationMode, X509RevocationFlag revocationFlag, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan timeout, Boolean disableAia)
+   at System.Security.Cryptography.X509Certificates.X509Chain.Build(X509Certificate2 certificate, Boolean throwOnException)
+   at System.Net.Security.CertificateValidation.BuildChainAndVerifyProperties(X509Chain chain, X509Certificate2 remoteCertificate, Boolean checkCertName, Boolean _, String hostName)
+   at System.Net.Security.SslStream.VerifyRemoteCertificate(RemoteCertificateValidationCallback remoteCertValidationCallback, SslCertificateTrust trust, ProtocolToken& alertToken, SslPolicyErrors& sslPolicyErrors, X509ChainStatusFlags& chainStatus)
+   at System.Net.Security.SslStream.CompleteHandshake(ProtocolToken& alertToken, SslPolicyErrors& sslPolicyErrors, X509ChainStatusFlags& chainStatus)
+   at System.Net.Security.SslStream.CompleteHandshake(SslAuthenticationOptions sslAuthenticationOptions)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Http.ConnectHelper.EstablishSslConnectionAsync(SslClientAuthenticationOptions sslOptions, HttpRequestMessage request, Boolean async, Stream stream, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at GitHub.Services.Common.VssHttpRetryMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at Sdk.WebApi.WebApi.RawHttpClientBase.SendAsync(HttpRequestMessage message, HttpCompletionOption completionOption, Object userState, CancellationToken cancellationToken)
+   at Sdk.WebApi.WebApi.RawHttpClientBase.SendAsync(HttpMethod method, Uri requestUri, HttpContent content, IEnumerable`1 queryParameters, Object userState, CancellationToken cancellationToken)
+   at Sdk.WebApi.WebApi.RawHttpClientBase.Send2Async(HttpMethod method, Uri requestUri, HttpContent content, IEnumerable`1 queryParameters, Object userState, CancellationToken cancellationToken)
+   at GitHub.Actions.RunService.WebApi.RunServiceHttpClient.CompleteJobAsync(Uri requestUri, Guid planId, Guid jobId, TaskResult conclusion, Dictionary`2 outputs, IList`1 stepResults, IList`1 jobAnnotations, String environmentUrl, IList`1 telemetry, String billingOwnerId, String infrastructureFailureCategory, CancellationToken cancellationToken)
+   at GitHub.Runner.Common.RunServer.<>c__DisplayClass7_0.<<CompleteJobAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at GitHub.Runner.Common.RunnerService.<>c__DisplayClass12_0.<<RetryRequest>g__wrappedFunc|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at GitHub.Runner.Common.RunnerService.RetryRequest[T](Func`1 func, CancellationToken cancellationToken, Int32 maxAttempts, Func`2 shouldRetry)
+[2025-12-01 14:13:11Z ERR  RunServer] #####################################################
+[2025-12-01 14:13:11Z ERR  RunServer] System.IO.FileNotFoundException: Could not load file or assembly 'System.Formats.Asn1, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51'. The system cannot find the file specified.
+
+File name: 'System.Formats.Asn1, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51'
+   at System.Security.Cryptography.X509Certificates.X500NameEncoder.X500DistinguishedNameDecode(Byte[] encodedName, Boolean printOid, Boolean reverse, Boolean quoteIfNeeded, String dnSeparator, String multiValueSeparator, Boolean addTrailingDelimiter)
+   at System.Security.Cryptography.X509Certificates.X500NameEncoder.X500DistinguishedNameDecode(Byte[] encodedName, Boolean printOid, X500DistinguishedNameFlags flags, Boolean addTrailingDelimiter)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.<>c.<get_Subject>b__28_0(SafeX509Handle cert)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.UseCertInteriorData[T](Func`2 callback)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509CertificateReader.get_Subject()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.<LoadMachineStores>g__ProcessFile|26_1(String file, DateTime& lastModified, Boolean skipStat, <>c__DisplayClass26_0&)
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.LoadMachineStores()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.GetCollections()
+   at System.Security.Cryptography.X509Certificates.OpenSslCachedSystemStoreProvider.GetNativeCollections(SafeX509StackHandle& root, SafeX509StackHandle& intermediate)
+   at System.Security.Cryptography.X509Certificates.OpenSslX509ChainProcessor.InitiateChain(SafeX509Handle leafHandle, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan remainingDownloadTime)
+   at System.Security.Cryptography.X509Certificates.ChainPal.BuildChainCore(Boolean useMachineContext, ICertificatePal cert, X509Certificate2Collection extraStore, OidCollection applicationPolicy, OidCollection certificatePolicy, X509RevocationMode revocationMode, X509RevocationFlag revocationFlag, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan timeout, Boolean disableAia)
+   at System.Security.Cryptography.X509Certificates.ChainPal.BuildChain(Boolean useMachineContext, ICertificatePal cert, X509Certificate2Collection extraStore, OidCollection applicationPolicy, OidCollection certificatePolicy, X509RevocationMode revocationMode, X509RevocationFlag revocationFlag, X509Certificate2Collection customTrustStore, X509ChainTrustMode trustMode, DateTime verificationTime, TimeSpan timeout, Boolean disableAia)
+   at System.Security.Cryptography.X509Certificates.X509Chain.Build(X509Certificate2 certificate, Boolean throwOnException)
+   at System.Net.Security.CertificateValidation.BuildChainAndVerifyProperties(X509Chain chain, X509Certificate2 remoteCertificate, Boolean checkCertName, Boolean _, String hostName)
+   at System.Net.Security.SslStream.VerifyRemoteCertificate(RemoteCertificateValidationCallback remoteCertValidationCallback, SslCertificateTrust trust, ProtocolToken& alertToken, SslPolicyErrors& sslPolicyErrors, X509ChainStatusFlags& chainStatus)
+   at System.Net.Security.SslStream.CompleteHandshake(ProtocolToken& alertToken, SslPolicyErrors& sslPolicyErrors, X509ChainStatusFlags& chainStatus)
+   at System.Net.Security.SslStream.CompleteHandshake(SslAuthenticationOptions sslAuthenticationOptions)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Http.ConnectHelper.EstablishSslConnectionAsync(SslClientAuthenticationOptions sslOptions, HttpRequestMessage request, Boolean async, Stream stream, CancellationToken cancellationToken)
+[2025-12-01 14:13:11Z WARN RunServer] Back off 9.813 seconds before next retry. 3 attempt left.

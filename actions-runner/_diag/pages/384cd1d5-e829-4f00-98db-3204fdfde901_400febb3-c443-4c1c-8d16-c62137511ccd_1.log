@@ -1,0 +1,10 @@
+﻿2025-12-01T14:12:55.5343703Z ##[group]Run git fetch origin main
+2025-12-01T14:12:55.5344354Z [36;1mgit fetch origin main[0m
+2025-12-01T14:12:55.5344761Z [36;1mgit reset --hard origin/main[0m
+2025-12-01T14:12:55.5352523Z shell: /usr/bin/bash -e {0}
+2025-12-01T14:12:55.5352911Z env:
+2025-12-01T14:12:55.5353230Z   PROJECT_PATH: /home/pompom/assign_2
+2025-12-01T14:12:55.5353635Z ##[endgroup]
+2025-12-01T14:12:56.1792651Z From https://github.com/pompomv/assign_2
+2025-12-01T14:12:56.1794576Z  * branch            main       -> FETCH_HEAD
+2025-12-01T14:12:56.6044105Z HEAD is now at ecd6845 Modified cicd2.yml
