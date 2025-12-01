@@ -9,7 +9,7 @@ jobs:
   # DEPLOY KE LAPTOP rifa
   # =========================================
   deploy-Pompom:
-    runs-on: [Pompom]  # label runner rifa
+    runs-on: [Pompom_1]  # label runner rifa
     steps:
       - name: Set project path
         run: |
@@ -32,7 +32,7 @@ jobs:
   # DEPLOY KE LAPTOP palah
   # =========================================
   deploy-palah:
-    runs-on: [DESKTOP-RFO2K9S]  # label runner Falah
+    runs-on: [Falah_1]  # label runner Falah
     
     steps:
       - name: Set project path
