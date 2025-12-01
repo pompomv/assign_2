@@ -1,131 +1,66 @@
-# Workflow GitHub Actions untuk Auto Deploy Online Course App
-# Workflow ini akan berjalan otomatis ketika ada push ke branch main
-# Fungsinya: pull kode terbaru dan rebuild semua Docker container
-
 name: CI/CD Auto Pull and Rebuild
 
-# Kapan workflow ini akan dijalankan:
-# 1. Ketika ada push ke branch main (otomatis)
-# 2. Manual trigger melalui GitHub Actions tab
 on:
   push:
-    branches: [ main ]   # Hanya berjalan ketika push ke main
-  workflow_dispatch:      # Bisa dijalankan manual juga
+    branches: [ main ]      # Jalan otomatis saat ada push ke main
+  workflow_dispatch:         # Bisa dijalankan manual dari tab Actions
 
 jobs:
+  # =========================================
+  # DEPLOY KE LAPTOP POMPOM
+  # =========================================
   deploy-pompom:
     runs-on: [self-hosted, Pompom_1]
-    
-    steps:
-      # Step 0: Deteksi path project secara dinamis
-      - name: Set project path
-        shell: bash
-        run: |
-          PROJECT_PATH=$(find /home -name 'assign_2' -type d 2>/dev/null | head -1)
-          if [ -z "$PROJECT_PATH" ]; then
-            echo "❌ Error: Folder assign_2 tidak ditemukan di /home"
-            echo "Pastikan project sudah di-clone ke salah satu user directory"
-            exit 1
-          fi
-          echo "PROJECT_PATH=$PROJECT_PATH" >> "$GITHUB_ENV"
-          echo "✅ Found project at: $PROJECT_PATH"
-        
-      # Step 1: Ambil kode terbaru dari branch main
-      - name: Pull latest changes
-        shell: bash
-        working-directory: ${{ env.PROJECT_PATH }}
-        run: |
-          git fetch origin main             # Download update terbaru
-          git reset --hard origin/main      # Reset ke versi terbaru (hapus perubahan lokal)
-        
-      # Step 2: Stop semua container yang sedang berjalan
-      - name: Stop existing containers
-        shell: bash
-        working-directory: ${{ env.PROJECT_PATH }}
-        run: |
-          docker compose down || true       # Stop container (|| true = lanjut walaupun error)
-        
-      # Step 3: Hapus resource lama untuk menghemat storage
-      - name: Remove old images
-        shell: bash
-        working-directory: ${{ env.PROJECT_PATH }}
-        run: |
-          docker system prune -f            # Hapus container/network yang tidak terpakai
-          docker image prune -a -f          # Hapus semua image yang tidak terpakai
-        
-      # Step 4: Build ulang dan jalankan semua container
-      - name: Build and start containers
-        shell: bash
-        working-directory: ${{ env.PROJECT_PATH }}
-        run: |
-          docker compose build --no-cache   # Build image baru tanpa cache
-          docker compose up -d              # Jalankan container di background
-        
-      # Step 5: Tunggu sampai semua service siap
-      - name: Wait for services to be ready
-        shell: bash
-        working-directory: ${{ env.PROJECT_PATH }}
-        run: |
-          sleep 30                          # Tunggu 30 detik
-          docker compose ps                 # Lihat status semua container
-        
-      # Step 6: Test apakah aplikasi berjalan dengan baik
-      - name: Health check
-        shell: bash
-        run: |
-          curl -f http://localhost:8081 || exit 1   # Test akses ke aplikasi (Nginx di 8081)
-        
-      # Step 7: Kasih tahu hasil deployment
-      - name: Notify deployment status
-        if: always()  # Selalu dijalankan (sukses atau gagal)
-        shell: bash
-        run: |
-          if [ "${{ job.status }}" = 'success' ]; then
-            echo "✅ Deployment berhasil di laptop Pompom! Aplikasi sudah update ke versi terbaru"
-          else
-            echo "❌ Deployment gagal di laptop Pompom! Cek log error di atas"
-          fi
 
-  deploy-falah:
-    runs-on: [self-hosted, Falah_1]
-    
     steps:
-      # Step 0: Deteksi path project secara dinamis
+      # Step 0: Set path project secara eksplisit
       - name: Set project path
         shell: bash
         run: |
-          PROJECT_PATH=$(find /home -name 'assign_2' -type d 2>/dev/null | head -1)
-          if [ -z "$PROJECT_PATH" ]; then
-            echo "❌ Error: Folder assign_2 tidak ditemukan di /home"
-            echo "Pastikan project sudah di-clone ke salah satu user directory"
-            exit 1
-          fi
-          echo "PROJECT_PATH=$PROJECT_PATH" >> "$GITHUB_ENV"
-          echo "✅ Found project at: $PROJECT_PATH"
-        
+          echo "PROJECT_PATH=/home/pompom/assign_2" >> "$GITHUB_ENV"
+          echo "✅ PROJECT_PATH set to /home/pompom/assign_2"
+
+      # (Opsional) Debug: pastikan folder adalah repo Git dan bisa diakses
+      - name: Debug repo and Docker
+        shell: bash
+        working-directory: ${{ env.PROJECT_PATH }}
+        run: |
+          echo "=== DEBUG INFO (POMPOM) ==="
+          pwd
+          ls -a
+          echo
+          echo "=== GIT STATUS ==="
+          git status
+          echo
+          echo "=== GIT REMOTE ==="
+          git remote -v || true
+          echo
+          echo "=== DOCKER COMPOSE VERSION ==="
+          docker compose version
+
       # Step 1: Ambil kode terbaru dari branch main
       - name: Pull latest changes
         shell: bash
         working-directory: ${{ env.PROJECT_PATH }}
         run: |
-          git fetch origin main
-          git reset --hard origin/main
-        
+          git fetch origin main           # Download update terbaru
+          git reset --hard origin/main   # Reset ke versi terbaru (hapus perubahan lokal)
+
       # Step 2: Stop semua container yang sedang berjalan
       - name: Stop existing containers
         shell: bash
         working-directory: ${{ env.PROJECT_PATH }}
         run: |
-          docker compose down || true
-        
-      # Step 3: Hapus resource lama untuk menghemat storage
-      - name: Remove old images
+          docker compose down || true    # Lanjut walau ada error
+
+      # Step 3: Bersihkan resource lama (opsional, hemat storage)
+      - name: Remove old images and unused resources
         shell: bash
         working-directory: ${{ env.PROJECT_PATH }}
         run: |
           docker system prune -f
           docker image prune -a -f
-        
+
       # Step 4: Build ulang dan jalankan semua container
       - name: Build and start containers
         shell: bash
@@ -133,29 +68,117 @@ jobs:
         run: |
           docker compose build --no-cache
           docker compose up -d
-        
-      # Step 5: Tunggu sampai semua service siap
+
+      # Step 5: Tunggu sampai service siap
       - name: Wait for services to be ready
         shell: bash
         working-directory: ${{ env.PROJECT_PATH }}
         run: |
           sleep 30
           docker compose ps
-        
-      # Step 6: Test apakah aplikasi berjalan dengan baik
+
+      # Step 6: Health check aplikasi
       - name: Health check
         shell: bash
         run: |
           curl -f http://localhost:8081 || exit 1
-        
-      # Step 7: Kasih tahu hasil deployment
+
+      # Step 7: Notifikasi status deployment
       - name: Notify deployment status
         if: always()
         shell: bash
         run: |
-          if [ "${{ job.status }}" = 'success' ]; then
-            echo "✅ Deployment berhasil di laptop Falah! Aplikasi sudah update ke versi terbaru"
+          if [ "${{ job.status }}" = "success" ]; then
+            echo "✅ Deployment berhasil di laptop Pompom! Aplikasi sudah update ke versi terbaru."
           else
-            echo "❌ Deployment gagal di laptop Falah! Cek log error di atas"
+            echo "❌ Deployment gagal di laptop Pompom! Cek log error di atas."
+          fi
+
+  # =========================================
+  # DEPLOY KE LAPTOP FALAH
+  # =========================================
+  deploy-falah:
+    runs-on: [self-hosted, Falah_1]
+
+    steps:
+      # Step 0: Set path project secara eksplisit (SESUIKAN username)
+      - name: Set project path
+        shell: bash
+        run: |
+          echo "PROJECT_PATH=/home/falah/assign_2" >> "$GITHUB_ENV"
+          echo "✅ PROJECT_PATH set to /home/falah/assign_2"
+
+      # Debug: pastikan folder benar
+      - name: Debug repo and Docker
+        shell: bash
+        working-directory: ${{ env.PROJECT_PATH }}
+        run: |
+          echo "=== DEBUG INFO (FALAH) ==="
+          pwd
+          ls -a
+          echo
+          echo "=== GIT STATUS ==="
+          git status
+          echo
+          echo "=== GIT REMOTE ==="
+          git remote -v || true
+          echo
+          echo "=== DOCKER COMPOSE VERSION ==="
+          docker compose version
+
+      # Step 1: Ambil kode terbaru dari branch main
+      - name: Pull latest changes
+        shell: bash
+        working-directory: ${{ env.PROJECT_PATH }}
+        run: |
+          git fetch origin main
+          git reset --hard origin/main
+
+      # Step 2: Stop semua container yang sedang berjalan
+      - name: Stop existing containers
+        shell: bash
+        working-directory: ${{ env.PROJECT_PATH }}
+        run: |
+          docker compose down || true
+
+      # Step 3: Bersihkan resource lama
+      - name: Remove old images and unused resources
+        shell: bash
+        working-directory: ${{ env.PROJECT_PATH }}
+        run: |
+          docker system prune -f
+          docker image prune -a -f
+
+      # Step 4: Build ulang dan jalankan semua container
+      - name: Build and start containers
+        shell: bash
+        working-directory: ${{ env.PROJECT_PATH }}
+        run: |
+          docker compose build --no-cache
+          docker compose up -d
+
+      # Step 5: Tunggu sampai service siap
+      - name: Wait for services to be ready
+        shell: bash
+        working-directory: ${{ env.PROJECT_PATH }}
+        run: |
+          sleep 30
+          docker compose ps
+
+      # Step 6: Health check aplikasi
+      - name: Health check
+        shell: bash
+        run: |
+          curl -f http://localhost:8081 || exit 1
+
+      # Step 7: Notifikasi status deployment
+      - name: Notify deployment status
+        if: always()
+        shell: bash
+        run: |
+          if [ "${{ job.status }}" = "success" ]; then
+            echo "✅ Deployment berhasil di laptop Falah! Aplikasi sudah update ke versi terbaru."
+          else
+            echo "❌ Deployment gagal di laptop Falah! Cek log error di atas."
           fi
 
