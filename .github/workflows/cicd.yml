@@ -1,0 +1,53 @@
+name: CI/CD Auto Deploy
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  # =========================================
+  # DEPLOY KE LAPTOP rifa
+  # =========================================
+  deploy-Danendra:
+    runs-on: [Pompom]  # label runner rifa
+    steps:
+      - name: Set project path
+        run: |
+          PROJECT_PATH=~/assign_2
+          echo "PROJECT_PATH=$PROJECT_PATH" >> $GITHUB_ENV
+      
+      - name: Pull latest changes
+        working-directory: ${{ env.PROJECT_PATH }}
+        run: |
+          git fetch origin master
+          git reset --hard origin/master
+
+      - name: Restart Docker
+        working-directory: ${{ env.PROJECT_PATH }}
+        run: |
+          docker compose down || true
+          docker compose up -d --build
+
+  # =========================================
+  # DEPLOY KE LAPTOP palah
+  # =========================================
+  deploy-husain:
+    runs-on: [DESKTOP-RFO2K9S]  # label runner Husain
+    
+    steps:
+      - name: Set project path
+        run: |
+          PROJECT_PATH=~/assign_2
+          echo "PROJECT_PATH=$PROJECT_PATH" >> $GITHUB_ENV
+
+      - name: Pull latest changes
+        working-directory: ${{ env.PROJECT_PATH }}
+        run: |
+          git fetch origin master
+          git reset --hard origin/master
+
+      - name: Restart Docker
+        working-directory: ${{ env.PROJECT_PATH }}
+        run: |
+          docker compose down || true
+          docker compose up -d --build
