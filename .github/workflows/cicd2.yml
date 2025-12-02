@@ -2,7 +2,7 @@ name: CI/CD Auto Pull and Rebuild
 
 on:
   push:
-    branches: [ main ]      # Jalan otomatis saat ada push ke main
+    branches: [ pompom ]      # Jalan otomatis saat ada push ke main
   workflow_dispatch:         # Bisa dijalankan manual dari tab Actions
 
 jobs:
