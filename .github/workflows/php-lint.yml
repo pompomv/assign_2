@@ -8,7 +8,7 @@ on:
 
 jobs:
   php-lint:
-    runs-on: ubuntu-latest  # <-- memakai runner GitHub, otomatis
+    runs-on: debian-latest  # <-- memakai runner GitHub, otomatis
 
     steps:
       - uses: actions/checkout@v3
